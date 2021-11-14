@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc5d17b86bb81c4e94dceaac740d4b8, type: 3}
+  m_Name: HealthPotion
+  m_EditorClassIdentifier: 
+  itemName: HealthPotion
+  itemDescription: Can treat your wounds
+  itemSprite: {fileID: 21300000, guid: 038ac2dfdedf7774eb76516540d19b5d, type: 3}
+  numberHeld: 0
+  maxNumberHeld: 3
+  usable: 1
+  unique: 0
+  healthIncrease: 1
