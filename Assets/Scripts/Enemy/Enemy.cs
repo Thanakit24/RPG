@@ -38,8 +38,6 @@ public class Enemy : MonoBehaviour
     protected Vector3 facingDirection;
     public bool facingRight;
 
-    public PlayerCurrency playerCurrency;
-
     //Enemy Pathfinding
     private Seeker seeker;
     private Path path;
@@ -58,9 +56,9 @@ public class Enemy : MonoBehaviour
         currentState = EnemyStates.IDLE;
         animator = GetComponent<Animator>();
         idleHash = Animator.StringToHash(idleAnim);
-
         seeker = GetComponent<Seeker>();
         InvokeRepeating("UpdatePath", 0f, 0.1f);
+
     }
 
     void UpdatePath()
@@ -194,7 +192,7 @@ public class Enemy : MonoBehaviour
     }
     public void GiveCurrency()
     {
-        playerCurrency.GainCurrecy(enemyCurrency);
+        PlayerCurrency.instance.GainCurrecy(enemyCurrency);
     }
     public void EnemyDead()
     {

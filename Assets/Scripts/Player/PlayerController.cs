@@ -140,13 +140,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    invManager.IncreaseItem(sample);
-        //    print("Brain");
-        //}
-
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.E))
         {
             Collider2D col = Physics2D.OverlapCircle(transform.position, interactRange, interactLayerMask);
             if (col)
@@ -154,7 +148,6 @@ public class PlayerController : MonoBehaviour
                 col.GetComponent<Interactable>().Interact(this);
             }
 
-            //if (hitCol.CompareTag(""))
             //if inside shop collider press e to open shop ui
             //if near item collider, press e to pick up
             //if near level interaction, press e to interact

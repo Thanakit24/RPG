@@ -14,7 +14,7 @@ public class InventorySlot : MonoBehaviour
     public InventoryItem thisItem;
     public InventoryManager thisManager;
 
-    public void SetUp(InventoryItem newItem, InventoryManager newManager)
+    public void SetUp(InventoryItem newItem, int numberHeld, InventoryManager newManager)
     {
         thisItem = newItem;
         thisManager = newManager; 
@@ -22,7 +22,7 @@ public class InventorySlot : MonoBehaviour
         { 
             itemImage.sprite = thisItem.itemSprite; //set this slot sprite to the item sprite
             Debug.Log("Set slot sprite to item sprite");
-            itemNumberText.text = $"{thisItem.numberHeld}/{thisItem.maxNumberHeld}";
+            itemNumberText.text = $"{numberHeld}/{thisItem.maxNumberHeld}";
         }
     }
 

@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5918293875085839720}
+  - component: {fileID: 5918293875085839722}
   - component: {fileID: 5918293875085839723}
   - component: {fileID: 5918293875085839733}
   - component: {fileID: 5918293875085839721}
   - component: {fileID: 5918293875085839726}
-  - component: {fileID: 5918293875085839722}
   - component: {fileID: 162546800}
   m_Layer: 8
   m_Name: RangeEnemy2
@@ -37,6 +37,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5918293875085839722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5918293875085839732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b10c994183d2490458892d8621d8f42f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  health: 3
+  moveSpeed: 2.5
+  enemyCurrency: 5
+  enemyName: Ok
+  attackDamage: 2
+  attackRange: 3
+  knockBack: 2.5
+  numberOfFlashes: 3
+  flashColor: {r: 1, g: 0, b: 0, a: 0}
+  regularColor: {r: 1, g: 1, b: 1, a: 1}
+  flashDuration: 0.1
+  knockbackDuration: 0.5
+  target: {fileID: 0}
+  facingRight: 0
+  nextWaypointDistance: 3
+  idleAnim: 
+  instantiateCooldown: 3
+  puddleProjectile: {fileID: 1140719873456739239, guid: a8753411b962e384ca7981d6262b918d,
+    type: 3}
 --- !u!212 &5918293875085839723
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -154,39 +186,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5598751, y: 0.77183723}
   m_EdgeRadius: 0
---- !u!114 &5918293875085839722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5918293875085839732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b10c994183d2490458892d8621d8f42f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
-  health: 3
-  moveSpeed: 2.5
-  enemyCurrency: 5
-  enemyName: Ok
-  attackDamage: 2
-  attackRange: 3
-  knockBack: 2.5
-  numberOfFlashes: 3
-  flashColor: {r: 1, g: 0, b: 0, a: 0}
-  regularColor: {r: 1, g: 1, b: 1, a: 1}
-  flashDuration: 0.1
-  knockbackDuration: 0.5
-  target: {fileID: 0}
-  facingRight: 0
-  playerCurrency: {fileID: 0}
-  nextWaypointDistance: 3
-  idleAnim: 
-  instantiateCooldown: 3
-  puddleProjectile: {fileID: 1140719873456739239, guid: a8753411b962e384ca7981d6262b918d,
-    type: 3}
 --- !u!114 &162546800
 MonoBehaviour:
   m_ObjectHideFlags: 0

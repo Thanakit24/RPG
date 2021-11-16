@@ -6,7 +6,8 @@ using TMPro;
 public class InventoryManager : MonoBehaviour
 {
     [Header("Inventory Info")]
-    public List<InventoryItem> myInventory = new List<InventoryItem>(); //Creates a list of slot to hold items, assign in scriptable object 
+    //public List<InventoryItem> myInventory = new List<InventoryItem>(); //Creates a list of slot to hold items, assign in scriptable object 
+    [SerializeField] public Dictionary<InventoryItem, int> myInventory = new Dictionary<InventoryItem, int>();
     public InventoryItem currentItem;
     [SerializeField] private GameObject emptyInventorySlot;
     [SerializeField] private GameObject inventoryContent;
@@ -38,17 +39,21 @@ public class InventoryManager : MonoBehaviour
     }
     void CreateInventorySlots()
     {
-        for (int i = 0; i < myInventory.Count; i++) // check player inventory size
+        print("creating slots");
+        foreach (KeyValuePair<InventoryItem, int> entry in myInventory)
         {
+            print($" entry: {entry}");
             GameObject temp = Instantiate(emptyInventorySlot, inventoryContent.transform.position, Quaternion.identity); //instantiate inventory slot on the content slot
             temp.transform.SetParent(inventoryContent.transform);
             InventorySlot newSlot = temp.GetComponent<InventorySlot>();
             if (newSlot)
             {
                 //Put in inventory scripatble object into INSTANTIATED THING
-                newSlot.SetUp(myInventory[i], this);
+                newSlot.SetUp(entry.Key, entry.Value, this);
             }
+
         }
+
     }
     void ClearInventorySlots()
     {
@@ -66,24 +71,40 @@ public class InventoryManager : MonoBehaviour
     // Update is called once per frame
     public void UseButtonPressed()
     {
-        if (currentItem && currentItem.numberHeld > 0)
+        if (currentItem && myInventory.ContainsKey(currentItem))
         {
-            currentItem.Use(this);
+            if (!currentItem.Use(this))
+            {
+                return;
+            }
+            myInventory[currentItem] -=  1;
+            if (myInventory[currentItem] == 0)
+            {
+                myInventory.Remove(currentItem);
+            }
+
             ClearInventorySlots();
             CreateInventorySlots();
         }
     }
-    
-    public void IncreaseItem(InventoryItem item, int increaseBy = 1)
+
+    public bool AddItem(InventoryItem item)
     {
-        
-        print("increase item");
-        if (item.numberHeld + increaseBy > item.maxNumberHeld)
+        if (!myInventory.ContainsKey(item))
         {
-            return;
+            print("added new");
+            myInventory.Add(item, 0);
         }
-        item.numberHeld += increaseBy;
+        if (myInventory[item] + 1 > item.maxNumberHeld)
+        {
+            return false;
+        }
+
+        myInventory[item]++;
+
         ClearInventorySlots();
         CreateInventorySlots();
+        return true;
     }
+
 }
