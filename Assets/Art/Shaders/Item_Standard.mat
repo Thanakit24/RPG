@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Custom_Standard
+  m_Name: Item_Standard
   m_Shader: {fileID: 4800000, guid: 6c7abaec6532b91439017ba9c01e3ff3, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
@@ -25,4 +25,4 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats: []
     m_Colors:
-    - _Color: {r: 2.1185474, g: 2.1185474, b: 2.1185474, a: 1}
+    - _Color: {r: 0, g: 6.788998, b: 7.9066987, a: 1}

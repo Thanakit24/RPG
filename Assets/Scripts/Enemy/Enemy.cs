@@ -57,11 +57,10 @@ public class Enemy : MonoBehaviour
         enemySprite = GetComponent<SpriteRenderer>();
         currentState = EnemyStates.IDLE;
         animator = GetComponent<Animator>();
-        var thing = animator.GetCurrentAnimatorClipInfo(0);
         idleHash = Animator.StringToHash(idleAnim);
 
         seeker = GetComponent<Seeker>();
-        InvokeRepeating("UpdatePath", 0f, .5f);
+        InvokeRepeating("UpdatePath", 0f, 0.1f);
     }
 
     void UpdatePath()
@@ -74,12 +73,11 @@ public class Enemy : MonoBehaviour
         if (!p.error)
         {
             path = p;
-            currentWaypoint = 0;
+            currentWaypoint = 1;
         }
     }
     protected virtual void Update()
     {
-        var thing = animator.GetCurrentAnimatorClipInfo(0).ToString();
 
         //DONT DO THIS IN A NORMAL UPDATE< INFACT DONT DO THIS 
         if (currentState == EnemyStates.Attack || currentState == EnemyStates.Knocked) return;
@@ -111,7 +109,6 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        print("Move");
         if (currentState == EnemyStates.Move)
         {
             Move();
@@ -132,9 +129,11 @@ public class Enemy : MonoBehaviour
         }
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * moveSpeed * Time.deltaTime;
-        rb.AddForce(force);
-        //rb.MovePosition(rb.position + force);
+        Vector2 relativePos = direction * moveSpeed * Time.deltaTime;
+
+        Debug.DrawLine(rb.position, rb.position + relativePos, Color.black, 99999f);
+        //rb.AddForce(newPos);
+        rb.MovePosition(rb.position + relativePos);
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 

@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     public float knockBack;
     public LayerMask enemyMask;
     public bool cantAttack = false;
-   
+
     //Health
     [Header("Health")]
     public int health;
@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour
     private bool isInvulnerable;
     public float invulnerableDurationTimer = 1;
     private float invulnerableDuration;
-    public LayerMask playerLayer;
     public SpriteRenderer mySprite;
     public int numberOfFlashes;
     public float flashDuration;
@@ -54,6 +53,12 @@ public class PlayerController : MonoBehaviour
     [Header("Pickups")]
     public InventoryItem sample;
     public InventoryManager invManager;
+    public GameObject invGO;
+    //public ContactFilter2D interactFilter;
+    //public Collider2D interactCol;
+    public float interactRange;
+    public LayerMask interactLayerMask;
+
 
     //public PlayerCurrency playerCurrency;
 
@@ -78,13 +83,13 @@ public class PlayerController : MonoBehaviour
         if (isInvulnerable)
         {
             currentState = PlayerState.invulnerable;
-            invulnerableDuration -= Time.deltaTime; 
+            invulnerableDuration -= Time.deltaTime;
             if (invulnerableDuration <= 0)
             {
                 isInvulnerable = false;
                 currentState = PlayerState.Default;
                 invulnerableDuration = invulnerableDurationTimer;
-    
+
             }
         }
 
@@ -132,13 +137,47 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            
+
         }
+
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    invManager.IncreaseItem(sample);
+        //    print("Brain");
+        //}
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            invManager.IncreaseItem(sample);
-            print("Brain");
+            Collider2D col = Physics2D.OverlapCircle(transform.position, interactRange, interactLayerMask);
+            if (col)
+            {
+                col.GetComponent<Interactable>().Interact(this);
+            }
+
+            //if (hitCol.CompareTag(""))
+            //if inside shop collider press e to open shop ui
+            //if near item collider, press e to pick up
+            //if near level interaction, press e to interact
+        }
+
+        //Toggle inventory
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            invGO.SetActive(!invGO.activeSelf);
+            if (invGO.activeSelf)
+            {
+                Time.timeScale = 0f;
+            }
+            else
+            {
+                Time.timeScale = 1f;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && invGO.activeSelf)
+        {
+            invGO.SetActive(false);
+            Time.timeScale = 1f;
         }
     }
 
@@ -171,7 +210,7 @@ public class PlayerController : MonoBehaviour
         float ydot = Vector2.Dot(lastDirection, Vector2.up);
         float angle = Mathf.Abs(xdot) > Mathf.Abs(ydot) ? xdot > 0 ? 90 : 270 : ydot > 0 ? 180 : 0; //bruh wtf
         attackPoint.transform.rotation = Quaternion.Euler(0, 0, angle);
-        print(angle);
+        //print(angle);
 
         cantAttack = true;
         animator.SetTrigger("Attacking");
@@ -197,8 +236,8 @@ public class PlayerController : MonoBehaviour
                 enemyController.TakeDamage(1);
                 if (enemyController.health == 0)
                     return;
-                    else
-                enemyController.EnemyDamagedEffect();
+                else
+                    enemyController.EnemyDamagedEffect();
                 enemyController.KnockBack(force);
 
             }
@@ -222,7 +261,7 @@ public class PlayerController : MonoBehaviour
         position.x = data.position[0];
         position.y = data.position[1];
         position.z = data.position[2];
-        transform.position = position; 
+        transform.position = position;
 
     }
 
@@ -239,7 +278,7 @@ public class PlayerController : MonoBehaviour
         {
             if (i < health)
             {
-                hearts[i].sprite = fullContainer; 
+                hearts[i].sprite = fullContainer;
             }
             else
             {
@@ -256,10 +295,10 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-   
+
     public void TakeDamage(int damage)
     {
-        if (currentState ==  PlayerState.invulnerable)
+        if (currentState == PlayerState.invulnerable)
         {
             return;
         }
@@ -283,7 +322,28 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(flashDuration);
             mySprite.color = regularColor;
             yield return new WaitForSeconds(flashDuration);
-            temp++; 
+            temp++;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        DrawGizmoCircle(transform.position, interactRange, Color.red);
+    }
+
+    public static void DrawGizmoCircle(Vector2 center, float radius, Color color, int segments = 200)
+    {
+        Gizmos.color = color;
+        float angle = 0;
+        float increment = 2 * Mathf.PI / segments;
+        for (int i = 0; i < segments; i++)
+        {
+            Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+            Vector2 firstLoc = direction * radius + center;
+            angle += increment;
+            direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+            Vector2 secondLoc = direction * radius + center;
+            Gizmos.DrawLine(firstLoc, secondLoc);
         }
     }
 }

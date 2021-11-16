@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -133993337
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2a80c73345b7a5641bdfbc8dc3d21a50, type: 3}
   m_Color: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 0.3882353}
@@ -90,11 +90,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7691378018253447514}
+  - component: {fileID: 7691378018253447513}
   - component: {fileID: 7691378018253447515}
   - component: {fileID: 7691378018253447516}
   - component: {fileID: 7691378018253447517}
   - component: {fileID: 7691378018253447512}
-  - component: {fileID: 7691378018253447513}
+  - component: {fileID: 415548623}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -119,6 +120,58 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7691378018253447513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7691378018253447518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af35c03a2c28fcb4f8ef391fef8c05f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 4
+  isMoving: 0
+  currentState: 0
+  attackPoint: {fileID: 7691378020073081194}
+  attackCooldown: 0
+  attackCooldownTimer: 0.5
+  attackDamage: 1
+  knockBack: 2.5
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 256
+  cantAttack: 0
+  health: 5
+  MaxOfHearts: 5
+  hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  fullContainer: {fileID: 21300000, guid: 6daf3ca2b6de820478c1e958f0ceb6dc, type: 3}
+  emptyContainer: {fileID: 21300000, guid: 2a21712e3ad6cbd468204eb459ad4f06, type: 3}
+  invulnerableDurationTimer: 1
+  mySprite: {fileID: 7691378018253447515}
+  numberOfFlashes: 3
+  flashDuration: 0.1
+  flashColor: {r: 1, g: 0, b: 0, a: 0.6862745}
+  regularColor: {r: 1, g: 1, b: 1, a: 1}
+  sample: {fileID: 11400000, guid: be2b49becd409c24e9f17f84e0c92d10, type: 2}
+  invManager: {fileID: 0}
+  invGO: {fileID: 0}
+  interactRange: 0.94
+  interactLayerMask:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!212 &7691378018253447515
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -156,7 +209,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -133993337
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: a4a790a1bb667a84296c56718fec8749, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -235,7 +288,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7691378018253447513
+--- !u!114 &415548623
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -244,42 +297,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7691378018253447518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af35c03a2c28fcb4f8ef391fef8c05f9, type: 3}
+  m_Script: {fileID: 11500000, guid: 03b6909d3135d7f49b6b2e32c4def437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
-  isMoving: 0
-  currentState: 0
-  attackPoint: {fileID: 7691378020073081194}
-  attackCooldown: 0
-  attackCooldownTimer: 0.5
-  attackDamage: 1
-  knockBack: 2.5
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 256
-  cantAttack: 0
-  health: 5
-  MaxOfHearts: 5
-  hearts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  fullContainer: {fileID: 21300000, guid: 6daf3ca2b6de820478c1e958f0ceb6dc, type: 3}
-  emptyContainer: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  invulnerableDurationTimer: 1
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  mySprite: {fileID: 0}
-  numberOfFlashes: 0
-  flashDuration: 0
-  flashColor: {r: 0, g: 0, b: 0, a: 0}
-  regularColor: {r: 0, g: 0, b: 0, a: 0}
-  sample: {fileID: 0}
-  invManager: {fileID: 0}
+  playerCurrency: 0
+  currencyText: {fileID: 0}
 --- !u!1 &7691378019798539969
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,7 +370,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -133993337
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

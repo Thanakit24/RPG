@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5918293875085839721}
   - component: {fileID: 5918293875085839726}
   - component: {fileID: 5918293875085839722}
+  - component: {fileID: 162546800}
   m_Layer: 8
   m_Name: RangeEnemy2
   m_TagString: Enemy
@@ -177,12 +178,43 @@ MonoBehaviour:
   flashColor: {r: 1, g: 0, b: 0, a: 0}
   regularColor: {r: 1, g: 1, b: 1, a: 1}
   flashDuration: 0.1
+  knockbackDuration: 0.5
   target: {fileID: 0}
   facingRight: 0
   playerCurrency: {fileID: 0}
+  nextWaypointDistance: 3
+  idleAnim: 
   instantiateCooldown: 3
   puddleProjectile: {fileID: 1140719873456739239, guid: a8753411b962e384ca7981d6262b918d,
     type: 3}
+--- !u!114 &162546800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5918293875085839732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!1 &5918293875761515695
 GameObject:
   m_ObjectHideFlags: 0
