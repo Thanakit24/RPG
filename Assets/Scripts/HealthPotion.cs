@@ -7,12 +7,12 @@ public class HealthPotion : InventoryItem
 {
     public int healthIncrease = 3;
 
-    public override bool Use(InventoryManager manager)
+    public override bool Use(PlayerInventory inventory)
     {
-        if (manager.player.health + healthIncrease > manager.player.MaxOfHearts)
+        if (inventory.player.health + healthIncrease > inventory.player.MaxOfHearts)
             return false;
         //base.Use(manager);
-        manager.player.health += healthIncrease;
+        inventory.player.health += healthIncrease;
         Debug.Log("called and increase player hp");
         return true;
     }

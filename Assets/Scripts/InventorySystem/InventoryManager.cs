@@ -7,16 +7,13 @@ public class InventoryManager : MonoBehaviour
 {
     [Header("Inventory Info")]
     //public List<InventoryItem> myInventory = new List<InventoryItem>(); //Creates a list of slot to hold items, assign in scriptable object 
+    public List<InventoryItem> initialList;
     [SerializeField] public Dictionary<InventoryItem, int> myInventory = new Dictionary<InventoryItem, int>();
     public InventoryItem currentItem;
     [SerializeField] private GameObject emptyInventorySlot;
     [SerializeField] private GameObject inventoryContent;
     [SerializeField] private TextMeshProUGUI descriptionText; //itemDescription text
     [SerializeField] private GameObject useButton; //item use button if its usable
-
-    [Header("Self Reference")]
-    public PlayerController player;
-
 
     public void SetTextAndButton(string description, bool buttonActive) //??
     {
@@ -32,12 +29,31 @@ public class InventoryManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
+        AddInitialItems();
         CreateInventorySlots();
         SetTextAndButton("", false);
     }
-    void CreateInventorySlots()
+
+    void AddInitialItems()
+    {
+        foreach (var item in initialList)
+        {
+            if (!myInventory.ContainsKey(item))
+            {
+                myInventory[item] = 0;
+            }
+            if (myInventory[item] + 1 > item.maxNumberHeld)
+            {
+                continue;
+            }
+
+            myInventory[item]++;
+        }
+    }
+
+    protected void CreateInventorySlots()
     {
         print("creating slots");
         foreach (KeyValuePair<InventoryItem, int> entry in myInventory)
@@ -51,11 +67,10 @@ public class InventoryManager : MonoBehaviour
                 //Put in inventory scripatble object into INSTANTIATED THING
                 newSlot.SetUp(entry.Key, entry.Value, this);
             }
-
         }
 
     }
-    void ClearInventorySlots()
+    protected void ClearInventorySlots()
     {
         for (int i = 0; i < inventoryContent.transform.childCount; i++) //Check all of the children under the content game object
         {
@@ -69,42 +84,16 @@ public class InventoryManager : MonoBehaviour
         useButton.SetActive(Usable);
     }
     // Update is called once per frame
-    public void UseButtonPressed()
+    
+    protected void DecreaseItem(InventoryItem item)
     {
-        if (currentItem && myInventory.ContainsKey(currentItem))
+        myInventory[item] -= 1;
+        if (myInventory[item] == 0)
         {
-            if (!currentItem.Use(this))
-            {
-                return;
-            }
-            myInventory[currentItem] -=  1;
-            if (myInventory[currentItem] == 0)
-            {
-                myInventory.Remove(currentItem);
-            }
-
-            ClearInventorySlots();
-            CreateInventorySlots();
+            myInventory.Remove(item);
         }
-    }
-
-    public bool AddItem(InventoryItem item)
-    {
-        if (!myInventory.ContainsKey(item))
-        {
-            print("added new");
-            myInventory.Add(item, 0);
-        }
-        if (myInventory[item] + 1 > item.maxNumberHeld)
-        {
-            return false;
-        }
-
-        myInventory[item]++;
 
         ClearInventorySlots();
         CreateInventorySlots();
-        return true;
     }
-
 }

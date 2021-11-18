@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Pickups")]
     public InventoryItem sample;
-    public InventoryManager invManager;
+    public PlayerInventory invManager;
     public GameObject invGO;
     //public ContactFilter2D interactFilter;
     //public Collider2D interactCol;

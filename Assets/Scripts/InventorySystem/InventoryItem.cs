@@ -9,6 +9,7 @@ public class InventoryItem : ScriptableObject
 {
     //Create a scriptable object and assign its values
     public string itemName;
+    public int itemCost = 1; 
     public string itemDescription;
     public Sprite itemSprite;
     //public int numberHeld;
@@ -16,7 +17,7 @@ public class InventoryItem : ScriptableObject
     public bool usable;
     public bool unique;
 
-    public virtual bool Use(InventoryManager manager)
+    public virtual bool Use(PlayerInventory player)
     {
         //Nothing
         Debug.Log("No override");
