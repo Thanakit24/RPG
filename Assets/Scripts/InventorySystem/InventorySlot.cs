@@ -8,6 +8,7 @@ public class InventorySlot : MonoBehaviour
 {
     [Header("Item UI")]
     [SerializeField] private TextMeshProUGUI itemNumberText;
+    [SerializeField] private TextMeshProUGUI itemCostText; 
     [SerializeField] private Image itemImage;
 
     [Header("Variables from an item")]

@@ -25,14 +25,14 @@ public class RangeSpirit2 : Enemy
     }
     public void PreparePuddle()
     {
-        if (instantiateCooldown <= 0)
+        if (instantiateCooldown > 0)
         {
-            animator.SetTrigger("Attack");
-            currentState = EnemyStates.Attack;
+            instantiateCooldown -= Time.deltaTime;
         }
         else
         {
-            instantiateCooldown -= Time.deltaTime;
+            animator.SetTrigger("Attack");
+            currentState = EnemyStates.Attack;
         }
     }
     public void InstantiatePuddle() //call through animation events 

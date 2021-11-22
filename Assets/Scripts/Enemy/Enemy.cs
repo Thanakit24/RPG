@@ -44,10 +44,21 @@ public class Enemy : MonoBehaviour
     private int currentWaypoint;
     public float nextWaypointDistance = 3f;
     private bool reachedEndOfPath = false;
+    public float movementIntervalMax = 3f;
+    private float movementInterval = 0.3f;
+    private Vector2 randMovedir;
+    public float drunkenness = 0.5f;
+
+    public float maxAnimStuck = 4f;
+    private float animStuck = 4f;
 
     //Animation
     public string idleAnim;
     private int idleHash;
+
+    //Event
+    public delegate void OnEnemyDeath(Enemy e);
+    public event OnEnemyDeath deathEvent;
 
     protected virtual void Start()
     {
@@ -58,13 +69,14 @@ public class Enemy : MonoBehaviour
         idleHash = Animator.StringToHash(idleAnim);
         seeker = GetComponent<Seeker>();
         InvokeRepeating("UpdatePath", 0f, 0.1f);
+        animStuck = maxAnimStuck;
 
     }
 
     void UpdatePath()
     {
-        if(seeker.IsDone())
-        seeker.StartPath(rb.position, target.position, OnPathComplete);
+        if (seeker.IsDone())
+            seeker.StartPath(rb.position, target.position, OnPathComplete);
     }
     void OnPathComplete(Path p)
     {
@@ -76,11 +88,27 @@ public class Enemy : MonoBehaviour
     }
     protected virtual void Update()
     {
+        enemySprite.sortingOrder = Mathf.FloorToInt(transform.position.y * -100);
+
+        //MAX TIME STUCK
 
         //DONT DO THIS IN A NORMAL UPDATE< INFACT DONT DO THIS 
-        if (currentState == EnemyStates.Attack || currentState == EnemyStates.Knocked) return;
+        if (currentState == EnemyStates.Attack || currentState == EnemyStates.Knocked)
+        {
+            if (animStuck > 0)
+            {
+                animStuck -= Time.deltaTime;
+                return;
+            }
+            else
+            {
+                Debug.Log("CRINGE ALERT ANIM WAS STUCK");
+                currentState = EnemyStates.IDLE;
+                animStuck = maxAnimStuck;
+            }
+        }
 
-
+        animStuck = maxAnimStuck;
         facingDirection = Vector2.zero;
         if (Vector3.Distance(target.position, transform.position) <= attackRange)
         {
@@ -93,12 +121,12 @@ public class Enemy : MonoBehaviour
             facingDirection = facingDirection.normalized;
         }
 
-        if (facingDirection.x < 0 && facingRight)
+        if (target.transform.position.x < transform.position.x && facingRight)
         {
             Flip();
         }
 
-        else if (facingDirection.x > 0 && !facingRight)
+        else if (target.transform.position.x > transform.position.x  && !facingRight)
         {
             Flip();
         }
@@ -126,7 +154,18 @@ public class Enemy : MonoBehaviour
             reachedEndOfPath = false;
         }
 
-        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+        if (movementInterval > 0)
+        {
+            movementInterval -= Time.deltaTime;
+        }
+        else
+        {
+            randMovedir = Random.insideUnitCircle;
+            movementInterval = Random.Range(0, movementIntervalMax);
+        }
+
+
+        Vector2 direction = (((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized + randMovedir * drunkenness).normalized;
         Vector2 relativePos = direction * moveSpeed * Time.deltaTime;
 
         Debug.DrawLine(rb.position, rb.position + relativePos, Color.black, 99999f);
@@ -155,7 +194,7 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             GiveCurrency();
-            EnemyDead();
+            Dead();
         }
     }
     public void KnockBack(Vector2 force)
@@ -163,8 +202,6 @@ public class Enemy : MonoBehaviour
         currentState = EnemyStates.Knocked;
         StartCoroutine(Knocking(force));
     }
-
-    
 
     private IEnumerator Knocking(Vector2 force)
     {
@@ -194,10 +231,16 @@ public class Enemy : MonoBehaviour
     {
         PlayerCurrency.instance.GainCurrecy(enemyCurrency);
     }
-    public void EnemyDead()
+
+    private void Dead()
     {
-        this.gameObject.SetActive(false);
-        //created this function to use this to work with the enemy spawner later
+        deathEvent?.Invoke(this);
+        animator.SetTrigger("Dead");
+    }
+
+    private void RemoveFromScene()
+    {
+        Destroy(gameObject);
     }
 
     public void DefaultState()
@@ -209,5 +252,13 @@ public class Enemy : MonoBehaviour
     public void ChangeStates(EnemyStates newState = EnemyStates.IDLE)
     {
         currentState = newState;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.GetComponent<PlayerController>().TakeDamage(1);
+        }
     }
 }

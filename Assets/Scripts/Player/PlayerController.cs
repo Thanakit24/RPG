@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     private bool isInvulnerable;
     public float invulnerableDurationTimer = 1;
     private float invulnerableDuration;
-    public SpriteRenderer mySprite;
+    public SpriteRenderer sr;
     public int numberOfFlashes;
     public float flashDuration;
     public Color flashColor;
@@ -73,10 +73,12 @@ public class PlayerController : MonoBehaviour
         invulnerableDuration = invulnerableDurationTimer;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
+        sr.sortingOrder = Mathf.FloorToInt(transform.position.y * -100);
         PlayerHealth();
         ProcessInputs();
 
@@ -89,10 +91,8 @@ public class PlayerController : MonoBehaviour
                 isInvulnerable = false;
                 currentState = PlayerState.Default;
                 invulnerableDuration = invulnerableDurationTimer;
-
             }
         }
-
     }
     private void FixedUpdate()
     {
@@ -132,7 +132,9 @@ public class PlayerController : MonoBehaviour
         //SAMPLE DEBUGGING CODE
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Scene currentScene = SceneManager.GetActiveScene();
+            SceneScript.instance.loadedScenes.Remove(currentScene.buildIndex);
+            SceneManager.LoadScene(currentScene.buildIndex);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -288,7 +290,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
     public void TakeDamage(int damage)
     {
         if (currentState == PlayerState.invulnerable)
@@ -311,9 +312,9 @@ public class PlayerController : MonoBehaviour
         int temp = 0;
         while (temp < numberOfFlashes)
         {
-            mySprite.color = flashColor;
+            sr.color = flashColor;
             yield return new WaitForSeconds(flashDuration);
-            mySprite.color = regularColor;
+            sr.color = regularColor;
             yield return new WaitForSeconds(flashDuration);
             temp++;
         }

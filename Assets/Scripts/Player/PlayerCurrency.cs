@@ -20,7 +20,7 @@ public class PlayerCurrency : MonoBehaviour
    
     public void GainCurrecy(int increaseAmount)
     {
-        print("player gain currency from enemy");
+        //print("player gain currency from enemy");
         currency += increaseAmount;
     }
     public void DecreaseCurrency(int decreaseAmount)

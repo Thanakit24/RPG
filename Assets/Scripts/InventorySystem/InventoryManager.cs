@@ -7,7 +7,7 @@ public class InventoryManager : MonoBehaviour
 {
     [Header("Inventory Info")]
     //public List<InventoryItem> myInventory = new List<InventoryItem>(); //Creates a list of slot to hold items, assign in scriptable object 
-    public List<InventoryItem> initialList;
+    public InventoryItem[] initialList;
     [SerializeField] public Dictionary<InventoryItem, int> myInventory = new Dictionary<InventoryItem, int>();
     public InventoryItem currentItem;
     [SerializeField] private GameObject emptyInventorySlot;
@@ -55,10 +55,10 @@ public class InventoryManager : MonoBehaviour
 
     protected void CreateInventorySlots()
     {
-        print("creating slots");
+        //print("creating slots");
         foreach (KeyValuePair<InventoryItem, int> entry in myInventory)
         {
-            print($" entry: {entry}");
+            //print($" entry: {entry}");
             GameObject temp = Instantiate(emptyInventorySlot, inventoryContent.transform.position, Quaternion.identity); //instantiate inventory slot on the content slot
             temp.transform.SetParent(inventoryContent.transform);
             InventorySlot newSlot = temp.GetComponent<InventorySlot>();

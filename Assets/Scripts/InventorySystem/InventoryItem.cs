@@ -15,6 +15,7 @@ public class InventoryItem : ScriptableObject
     //public int numberHeld;
     public int maxNumberHeld = 1;
     public bool usable;
+    public bool buyable;
     public bool unique;
 
     public virtual bool Use(PlayerInventory player)
