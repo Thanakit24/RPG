@@ -238,7 +238,7 @@ public class Enemy : MonoBehaviour
         animator.SetTrigger("Dead");
     }
 
-    private void RemoveFromScene()
+    private void RemoveFromScene() //call through animation event 
     {
         Destroy(gameObject);
     }
