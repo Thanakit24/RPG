@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Custom_Global_Gradient
-  m_Shader: {fileID: 4800000, guid: 8cfa545668c3b614eace87069ed0a82a, type: 3}
+  m_Name: CheckPoint_Gradient
+  m_Shader: {fileID: 4800000, guid: c71e041ce31d909458ff33f81d9c1fee, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -25,4 +25,4 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats: []
     m_Colors:
-    - Up_Tint: {r: 1, g: 0.5559765, b: 0.514151, a: 1}
+    - Up_Tint: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}

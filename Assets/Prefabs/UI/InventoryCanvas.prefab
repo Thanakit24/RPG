@@ -402,6 +402,7 @@ MonoBehaviour:
   descriptionText: {fileID: 1367750642106933611}
   useButton: {fileID: 1367750641365470082}
   player: {fileID: 0}
+  currency: 0
 --- !u!1 &1367750641818077262
 GameObject:
   m_ObjectHideFlags: 0

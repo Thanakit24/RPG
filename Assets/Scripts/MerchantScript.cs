@@ -10,6 +10,7 @@ public class MerchantScript : InventoryManager
     public TMP_Text itemCost;
     bool isActivated = false;
      PlayerController currentPlayer;
+    public Conversation merchantConvo;
     //public ShopUI shop;
     // Start is called before the first frame update
 
@@ -26,26 +27,38 @@ public class MerchantScript : InventoryManager
     {
         base.Start();
     }
-
-    void OnShopInteract(PlayerController p)
-    {
-        currentPlayer = p;
-        isActivated = true;
-        shopUI.SetActive(true);
-        Time.timeScale = 0f;
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (isActivated && Input.GetKeyDown(KeyCode.Escape))
         {
-            isActivated = false;
-            Time.timeScale = 1f;
-            shopUI.SetActive(false);
-            currentPlayer = null;
+            OnInteractFinish();
         }
     }
+    void OnShopInteract(PlayerController p)
+    {
+        currentPlayer = p;
+        DialogueManager.StartConversation(merchantConvo);
+        DialogueManager.textEnd += OnDialogueFinish;
+    }
+
+    void OnDialogueFinish()
+    {
+        DialogueManager.textEnd -= OnDialogueFinish;
+        isActivated = true;
+        shopUI.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    void OnInteractFinish()
+    {
+        isActivated = false;
+        Time.timeScale = 1f;
+        shopUI.SetActive(false);
+        currentPlayer = null;
+        interactable.FinishInteracting();
+    }
+
+    // Update is called once per frame
+   
     public void BuyItem()
     {
         if (currentItem.itemCost > currentPlayer.invManager.currency)

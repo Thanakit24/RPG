@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 92, y: -87}
+  m_AnchoredPosition: {x: 128, y: -87}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6495314316654650155
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 131.30765, w: 13.0387125}
+  m_margin: {x: 0, y: 0, z: 70.578865, w: 13.0387125}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -178,8 +178,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96a2b73f7753f7c4b9a1a85dcb011d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTutorial: 0
   interactPrompt: {fileID: 0}
-  interactMessage: Press E to suck my ass
+  interactMessage: Press E to Open Shop
 --- !u!58 &7934719227807734978
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -440,7 +441,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 3.3, y: 0}
-  m_SizeDelta: {x: 0, y: -119.39435}
+  m_SizeDelta: {x: -5.8232346, y: -119.39435}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7934719228430099523
 MonoBehaviour:
@@ -893,6 +894,7 @@ MonoBehaviour:
   useButton: {fileID: 7934719229062158012}
   interactable: {fileID: 7934719227807734979}
   shopUI: {fileID: 7934719229457317725}
+  itemCost: {fileID: 3623882839728478738}
 --- !u!212 &7934719229185081251
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1188,7 +1190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7934719229457317696
 RectTransform:
   m_ObjectHideFlags: 0

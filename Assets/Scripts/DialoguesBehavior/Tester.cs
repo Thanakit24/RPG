@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Tester : MonoBehaviour
+
 {
     public Conversation convo;
     // Start is called before the first frame update
@@ -15,5 +16,13 @@ public class Tester : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+       if (collision.gameObject.CompareTag("Player"))
+        {
+            StartConvo();
+        }
     }
 }

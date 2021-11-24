@@ -24327,11 +24327,6 @@ PrefabInstance:
       propertyPath: interactPrompt
       value: 
       objectReference: {fileID: 613350680}
-    - target: {fileID: 7934719228430099549, guid: a58c4b906eeb09c40ade4a5146e3b40a,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -5.8232346
-      objectReference: {fileID: 0}
     - target: {fileID: 7934719229185081248, guid: a58c4b906eeb09c40ade4a5146e3b40a,
         type: 3}
       propertyPath: m_RootOrder
@@ -24391,11 +24386,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: '>MERCHANT<'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7934719229457317725, guid: a58c4b906eeb09c40ade4a5146e3b40a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a58c4b906eeb09c40ade4a5146e3b40a, type: 3}

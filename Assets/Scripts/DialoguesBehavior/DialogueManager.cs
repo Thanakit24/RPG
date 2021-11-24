@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -10,11 +11,16 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogue;
     public TextMeshProUGUI navButtonText;
     public Image speakerSprite;
-
+    public GameObject dialogueBox;
     private int currentIndex;
     private Conversation currentConvo;
     private static DialogueManager instance;
     private Coroutine typing;
+    private bool activated = false;
+
+
+    //public delegate void TextEndAction()
+    public static event Action textEnd;
 
     private void Awake()
     {
@@ -29,6 +35,9 @@ public class DialogueManager : MonoBehaviour
     }
     public static void StartConversation(Conversation convo)
     {
+        Time.timeScale = 0f;
+        instance.dialogueBox.SetActive(true);
+        instance.activated = true;
         instance.currentIndex = 0;
         instance.currentConvo = convo;
         instance.speakerName.text = "";
@@ -37,10 +46,20 @@ public class DialogueManager : MonoBehaviour
 
         instance.ReadNext();
     }
+
     public void ReadNext()
     {
+        print($" lenmgth {currentConvo.GetLength()}");
         if (currentIndex > currentConvo.GetLength())
+        {
+            //Finsish Convo
+            Time.timeScale = 1f;
+            print("finish convo");
+            textEnd?.Invoke();
+            dialogueBox.SetActive(false);
+            activated = false;
             return;
+        }
 
         speakerName.text = currentConvo.GetLineByIndex(currentIndex).speaker.GetName();
 
@@ -59,6 +78,14 @@ public class DialogueManager : MonoBehaviour
         currentIndex++;
     }
 
+    private void Update()
+    {
+        if (activated && Input.anyKeyDown)
+        {
+            ReadNext();
+        }
+    }
+
     private IEnumerator TypeText(string text)
     {
         dialogue.text = "";
@@ -69,7 +96,7 @@ public class DialogueManager : MonoBehaviour
         {
             dialogue.text += text[index];
             index++;
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForSecondsRealtime(0.02f);
             if(index == text.Length)
             {
                 complete = true;

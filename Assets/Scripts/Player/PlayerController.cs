@@ -10,6 +10,7 @@ public enum PlayerState
     attack,
     invulnerable,
     interact,
+    Dash
 
 }
 public class PlayerController : MonoBehaviour
@@ -17,6 +18,14 @@ public class PlayerController : MonoBehaviour
     //Movement
     [Header("Move")]
     public float moveSpeed;
+    public float dashSpeed;
+
+    private float dashTime;
+    public float dashTimeMax = 0.5f;
+
+    private float dashCooldown;
+    public float dashCoolDownMax = 2f;
+
     private Rigidbody2D rb;
     public bool isMoving = false;
     private Vector2 moveDirection; //changing sprite direction
@@ -41,7 +50,6 @@ public class PlayerController : MonoBehaviour
     public Image[] hearts;
     public Sprite fullContainer;
     public Sprite emptyContainer;
-    private bool isInvulnerable;
     public float invulnerableDurationTimer = 1;
     private float invulnerableDuration;
     public SpriteRenderer sr;
@@ -66,10 +74,11 @@ public class PlayerController : MonoBehaviour
     //Animation States
     void Start()
     {
-        isInvulnerable = false;
         attackPoint.SetActive(false);
         currentState = PlayerState.Default;
         attackCooldown = attackCooldownTimer;
+        dashTime = dashTimeMax;
+        dashCooldown = dashCoolDownMax;
         invulnerableDuration = invulnerableDurationTimer;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -82,17 +91,31 @@ public class PlayerController : MonoBehaviour
         PlayerHealth();
         ProcessInputs();
 
-        if (isInvulnerable)
+        switch (currentState)
         {
-            currentState = PlayerState.invulnerable;
-            invulnerableDuration -= Time.deltaTime;
-            if (invulnerableDuration <= 0)
-            {
-                isInvulnerable = false;
-                currentState = PlayerState.Default;
-                invulnerableDuration = invulnerableDurationTimer;
-            }
+            case PlayerState.Dash:
+                dashTime -= Time.deltaTime;
+                dashCooldown = dashCoolDownMax;
+                if (dashTime <= 0)
+                {
+                    currentState = PlayerState.Default;
+                    dashTime = dashTimeMax;
+                }
+                break;
+
+            case PlayerState.invulnerable:
+                invulnerableDuration -= Time.deltaTime;
+                if (invulnerableDuration <= 0)
+                {
+                    currentState = PlayerState.Default;
+                    invulnerableDuration = invulnerableDurationTimer;
+                }
+                break;
+            default:
+                dashCooldown -= Time.deltaTime;
+                break;
         }
+
     }
     private void FixedUpdate()
     {
@@ -120,6 +143,7 @@ public class PlayerController : MonoBehaviour
                 attackCooldown = attackCooldownTimer;
             }
         }
+
         if (Input.GetKeyDown(KeyCode.Space) && !cantAttack)
         {
             Attack();
@@ -137,9 +161,13 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(currentScene.buildIndex);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldown < 0 && currentState != PlayerState.Dash)
         {
 
+            currentState = PlayerState.Dash;
+            //dash torugh enemy
+            //invulnerability    
+            //disable gap collider
         }
 
         if (Input.GetKeyUp(KeyCode.E))
@@ -149,10 +177,6 @@ public class PlayerController : MonoBehaviour
             {
                 col.GetComponent<Interactable>().Interact(this);
             }
-
-            //if inside shop collider press e to open shop ui
-            //if near item collider, press e to pick up
-            //if near level interaction, press e to interact
         }
 
         //Toggle inventory
@@ -179,8 +203,16 @@ public class PlayerController : MonoBehaviour
     #region Move
     void Move()
     {
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+        if (currentState == PlayerState.Dash)
+        {
+            rb.velocity = new Vector2(lastDirection.x * dashSpeed, lastDirection.y * dashSpeed);
+        }
+        else
+        {
+            rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+        }
     }
+
 
     void UpdateMoveAnimations()
     {
@@ -237,9 +269,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    #endregion 
-
-   
+    #endregion
     private void PlayerHealth()
     {
         if (health > MaxOfHearts)
@@ -270,14 +300,13 @@ public class PlayerController : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
-        if (currentState == PlayerState.invulnerable)
+        if (currentState == PlayerState.invulnerable || currentState == PlayerState.Dash)
         {
             return;
         }
         else
         {
             health -= damage;
-            isInvulnerable = true;
             StartCoroutine(FlashDamage());
             if (health <= 0)
             {

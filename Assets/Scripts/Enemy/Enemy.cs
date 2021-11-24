@@ -123,7 +123,7 @@ public class Enemy : MonoBehaviour
         animStuck = maxAnimStuck;
         //facingDirection = Vector2.zero;
         float distanceFromPlayer = Vector3.Distance(player.transform.position, transform.position);
-        
+
         if (isPatrol && distanceFromPlayer > chaseRadius)
         {
             Patrol();
@@ -144,11 +144,13 @@ public class Enemy : MonoBehaviour
 
         if (target.transform.position.x < transform.position.x && facingRight)
         {
-            Flip();
+            if (!waitAtPatrol || !isPatrol)
+                Flip();
         }
 
         else if (target.transform.position.x > transform.position.x && !facingRight)
         {
+            if (!waitAtPatrol || !isPatrol)
             Flip();
         }
     }
@@ -299,8 +301,8 @@ public class Enemy : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        KongrooUtils.DrawGizmoCircle(transform.position, chaseRadius, Color.red);
-        KongrooUtils.DrawGizmoCircle(transform.position, attackRange, Color.yellow);
+        KongrooUtils.DrawGizmoCircle(transform.position, chaseRadius, Color.yellow);
+        KongrooUtils.DrawGizmoCircle(transform.position, attackRange, Color.red);
     }
 
     //im gonna go get some air for 5-10 mins, head start to hurt brb
