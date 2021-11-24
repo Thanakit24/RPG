@@ -49,7 +49,6 @@ public class PlayerController : MonoBehaviour
     public float flashDuration;
     public Color flashColor;
     public Color regularColor;
-    public int currency = 0;
 
     [Header("Pickups")]
     public InventoryItem sample;
@@ -240,30 +239,7 @@ public class PlayerController : MonoBehaviour
     }
     #endregion 
 
-    
-
-    //#region SAVE & LOAD DATA
-    //public void SavePlayer()
-    //{
-    //    SaveSystem.SavePlayer(this);
-    //}
-
-    //public void LoadPlayer()
-    //{
-    //    PlayerData data = SaveSystem.LoadPlayer();
-
-    //    health = data.health;
-
-    //    Vector3 position;
-    //    position.x = data.position[0];
-    //    position.y = data.position[1];
-    //    position.z = data.position[2];
-    //    transform.position = position;
-
-    //}
-
-    //#endregion 
-
+   
     private void PlayerHealth()
     {
         if (health > MaxOfHearts)

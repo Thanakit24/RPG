@@ -21,6 +21,7 @@ public class SceneTransition : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            SaveSystem.SavePlayer(GameManager.instance.player);
             SceneManager.LoadScene(sceneToLoad);
         }
     }

@@ -6,15 +6,19 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public PlayerController player;
     public TMP_Text currencyText;
     public TMP_Text interactText;
 
     private void Awake()
     {
         instance = this;
+        PlayerData data = SaveSystem.LoadPlayer();
+        data.PopulatePlayer(player);
+       
     }
     private void Update()
     {
-        currencyText.text = PlayerCurrency.instance.currency.ToString();
+        currencyText.text = player.invManager.currency.ToString();
     }
 }

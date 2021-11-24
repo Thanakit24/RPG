@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4318937913017097060
 Transform:
   m_ObjectHideFlags: 0
@@ -170,14 +170,20 @@ MonoBehaviour:
   enemyCurrency: 3
   enemyName: Bruh
   attackDamage: 1
-  attackRange: 0.9
   knockBack: 2.5
+  isPatrol: 0
+  patroltWaypointDistance: 0.5
+  patrolPoints: []
+  patrolIndex: 0
+  waitTime: 2.39
+  chaseRadius: 4.1
+  attackRange: 0.69
   numberOfFlashes: 3
   flashColor: {r: 1, g: 0, b: 0, a: 0}
   regularColor: {r: 1, g: 1, b: 1, a: 1}
   flashDuration: 0.1
   knockbackDuration: 0.2
-  target: {fileID: 0}
+  player: {fileID: 0}
   facingRight: 0
   nextWaypointDistance: 0.5
   movementIntervalMax: 3

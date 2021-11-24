@@ -24,9 +24,7 @@ public class MerchantScript : InventoryManager
     }
     protected override void Start()
     {
-
         base.Start();
-
     }
 
     void OnShopInteract(PlayerController p)
@@ -50,7 +48,7 @@ public class MerchantScript : InventoryManager
     }
     public void BuyItem()
     {
-        if (currentItem.itemCost > PlayerCurrency.instance.currency)
+        if (currentItem.itemCost > currentPlayer.invManager.currency)
         {
             return;
         }
@@ -61,7 +59,7 @@ public class MerchantScript : InventoryManager
                 //PURCHASE GONE WRONG 
                 return;
             }
-            PlayerCurrency.instance.DecreaseCurrency(currentItem.itemCost);
+            currentPlayer.invManager.DecreaseCurrency(currentItem.itemCost);
             DecreaseItem(currentItem);
 
         }

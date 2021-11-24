@@ -9,15 +9,21 @@ public class PlayerData
     public int currency;
     public int level;
 
+
     //public List<>
 
 
-    public PlayerData (PlayerController player)
+    public PlayerData(PlayerController player)
     {
-
         //player.invManager.myInventory.Keys
         health = player.health;
         currency = player.invManager.currency;
+    }
+    public void PopulatePlayer(PlayerController player)
+    {
+        player.health = health;
+        player.invManager.currency = currency;
+
     }
 
     public void OnBeforeSerialize()

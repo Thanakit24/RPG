@@ -72,6 +72,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Start()
     {
+        player = GameManager.instance.player.transform;
         target = player;
         rb = GetComponent<Rigidbody2D>();
         enemySprite = GetComponent<SpriteRenderer>();

@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc5d17b86bb81c4e94dceaac740d4b8, type: 3}
   m_Name: HealthPotion++
   m_EditorClassIdentifier: 
+  Id: 58eb46a2-e232-4a27-a4d6-c59ba408312b
   itemName: HealthPotion++
   itemCost: 100
   itemDescription: Legend Says it makes a whole new person, Ship of Theseus be damned
   itemSprite: {fileID: 21300000, guid: 038ac2dfdedf7774eb76516540d19b5d, type: 3}
   maxNumberHeld: 2
   usable: 1
+  buyable: 0
   unique: 0
   healthIncrease: 225
