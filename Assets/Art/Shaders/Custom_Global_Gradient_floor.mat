@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Custom_Global_Gradient 2
+  m_Name: Custom_Global_Gradient_floor
   m_Shader: {fileID: 4800000, guid: 8cfa545668c3b614eace87069ed0a82a, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4

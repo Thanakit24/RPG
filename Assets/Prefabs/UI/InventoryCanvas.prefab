@@ -392,9 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa88ed488d58c34aa932a0cc444a36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialList:
-  - {fileID: 11400000, guid: be2b49becd409c24e9f17f84e0c92d10, type: 2}
-  - {fileID: 11400000, guid: be73acda39ee7864fba4a2c2f1d86c9e, type: 2}
+  initialList: []
   currentItem: {fileID: 0}
   emptyInventorySlot: {fileID: 6182520103012132184, guid: 15a53702c13d3d540a2213bbdb49a8f4,
     type: 3}

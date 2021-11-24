@@ -361,7 +361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7249445415588645623
 RectTransform:
   m_ObjectHideFlags: 0
@@ -462,7 +462,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7249445416590350748}
+      - m_Target: {fileID: 7249445416590350748, guid: a239c5e950c7f3c459f504c2ffe0a357,
+          type: 3}
         m_MethodName: ReadNext
         m_Mode: 1
         m_Arguments:
@@ -621,6 +622,7 @@ GameObject:
   - component: {fileID: 7249445416080843765}
   - component: {fileID: 7249445416080843764}
   - component: {fileID: 7249445416080843763}
+  - component: {fileID: 784637787}
   m_Layer: 5
   m_Name: DialoguesCanvas
   m_TagString: Untagged
@@ -708,6 +710,23 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &784637787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7249445416080843762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b9e417e378544c41ad373dcbd1f54ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speakerName: {fileID: 3338715477833642735}
+  dialogue: {fileID: 2451902403811930047}
+  navButtonText: {fileID: 7249445415070038262}
+  speakerSprite: {fileID: 2287223332600411826}
+  dialogueBox: {fileID: 7249445416590350744}
 --- !u!1 &7249445416590350744
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,7 +737,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7249445416590350745}
   - component: {fileID: 7249445416590350747}
-  - component: {fileID: 7249445416590350748}
   - component: {fileID: 3061030758588039041}
   m_Layer: 5
   m_Name: DialogueBox
@@ -726,7 +744,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7249445416590350745
 RectTransform:
   m_ObjectHideFlags: 0
@@ -747,8 +765,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -163.89}
-  m_SizeDelta: {x: 804.25806, y: -78.91351}
+  m_AnchoredPosition: {x: 400, y: -166.2}
+  m_SizeDelta: {x: 804.25806, y: -92.79553}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7249445416590350747
 CanvasRenderer:
@@ -758,22 +776,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7249445416590350744}
   m_CullTransparentMesh: 0
---- !u!114 &7249445416590350748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7249445416590350744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b9e417e378544c41ad373dcbd1f54ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speakerName: {fileID: 3338715477833642735}
-  dialogue: {fileID: 2451902403811930047}
-  navButtonText: {fileID: 7249445415070038262}
-  speakerSprite: {fileID: 2287223332600411826}
 --- !u!114 &3061030758588039041
 MonoBehaviour:
   m_ObjectHideFlags: 0

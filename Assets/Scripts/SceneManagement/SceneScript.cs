@@ -18,7 +18,6 @@ public class SceneScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
         DontDestroyOnLoad(gameObject);
     }
 
@@ -47,9 +46,5 @@ public class SceneScript : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        
-    }
 
 }

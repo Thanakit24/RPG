@@ -58,3 +58,6 @@ TagManager:
   - name: Effects
     uniqueID: 3626393913
     locked: 0
+  - name: New Layer
+    uniqueID: 237534861
+    locked: 0

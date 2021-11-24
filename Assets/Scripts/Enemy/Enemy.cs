@@ -10,11 +10,12 @@ public enum EnemyStates
     Knocked,
     AttackPrepare,
     Attack,
+    Dead,
 }
 public class Enemy : MonoBehaviour
 {
     public EnemyStates currentState;
-    protected Rigidbody2D rb; //protected is private but for parents and children is accessible //professor if u see this i died
+    protected Rigidbody2D rb; //protected is private but for parents and children is accessible
     public int health;
     public float moveSpeed;
     public int enemyCurrency; //currency; 
@@ -101,7 +102,8 @@ public class Enemy : MonoBehaviour
     protected virtual void Update()
     {
         enemySprite.sortingOrder = Mathf.FloorToInt(transform.position.y * -100);
-
+        if (currentState == EnemyStates.Dead)
+            return;
         //MAX TIME STUCK
 
         //DONT DO THIS IN A NORMAL UPDATE< INFACT DONT DO THIS 
@@ -234,6 +236,7 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            ChangeStates(EnemyStates.Dead);
             player.invManager.GainCurrecy(enemyCurrency);
             Dead();
         }
@@ -268,7 +271,6 @@ public class Enemy : MonoBehaviour
             temp++;
         }
     }
-
     private void Dead()
     {
         deathEvent?.Invoke(this);

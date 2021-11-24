@@ -895,6 +895,7 @@ MonoBehaviour:
   interactable: {fileID: 7934719227807734979}
   shopUI: {fileID: 7934719229457317725}
   itemCost: {fileID: 3623882839728478738}
+  merchantConvo: {fileID: 11400000, guid: 55c860318bcfb43449f901919709a493, type: 2}
 --- !u!212 &7934719229185081251
 SpriteRenderer:
   m_ObjectHideFlags: 0
