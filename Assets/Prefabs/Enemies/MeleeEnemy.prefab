@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4318937913017097060
 Transform:
   m_ObjectHideFlags: 0
@@ -145,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 4318937913017097059}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.91, y: 4.45, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children:
   - {fileID: 4318937912529131534}
   - {fileID: 493934024675351953}
@@ -181,7 +181,7 @@ MonoBehaviour:
   facingRight: 0
   nextWaypointDistance: 0.5
   movementIntervalMax: 3
-  drunkenness: 0.2
+  drunkenness: 0.09
   maxAnimStuck: 4
   idleAnim: MeleeEnemy_Run
   attackPoint: {fileID: 4318937912529131533}

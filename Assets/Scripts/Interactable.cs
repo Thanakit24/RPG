@@ -5,7 +5,7 @@ using TMPro;
 using System;
 public class Interactable : MonoBehaviour
 {
-    public TextMeshProUGUI interactPrompt;
+    public TMP_Text interactPrompt;
     public string interactMessage = "Press \"E\" to interact";
 
     public delegate void InteractAction(PlayerController p);
@@ -16,11 +16,11 @@ public class Interactable : MonoBehaviour
     private void Start()
     {
         //interactPrompt = GameObject.FindGameObjectWithTag("InteractPrompt").GetComponent<TextMeshProUGUI>();   
+        interactPrompt = GameManager.instance.interactText;
     }
 
     public void Interact(PlayerController p)
     {
-        //action?.Invoke(p);
         if (action !=null)
         {
             action(p);

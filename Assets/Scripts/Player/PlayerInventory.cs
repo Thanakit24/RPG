@@ -6,6 +6,7 @@ public class PlayerInventory : InventoryManager
 {
     [Header("Self Reference")]
     public PlayerController player;
+    public int currency = 0;
     public void UseButtonPressed()
     {
         if (currentItem && myInventory.ContainsKey(currentItem))
@@ -35,4 +36,15 @@ public class PlayerInventory : InventoryManager
         CreateInventorySlots();
         return true;
     }
+
+    public void GainCurrecy(int increaseAmount)
+    {
+        //print("player gain currency from enemy");
+        currency += increaseAmount;
+    }
+    public void DecreaseCurrency(int decreaseAmount)
+    {
+        currency -= decreaseAmount;
+    }
+
 }

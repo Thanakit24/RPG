@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MerchantScript : InventoryManager
 {
     public Interactable interactable;
     public GameObject shopUI;
+    public TMP_Text itemCost;
     bool isActivated = false;
      PlayerController currentPlayer;
     //public ShopUI shop;
@@ -64,6 +66,13 @@ public class MerchantScript : InventoryManager
 
         }
     }
+
+    public override void ItemDescriptionAndButton(InventoryItem newItem)
+    {
+        base.ItemDescriptionAndButton(newItem);
+        itemCost.text = $"Cost:{newItem.itemCost}"; //Interpolated string: $ at start of string, code in brackets
+    }
+
     //public void DecreaseItem()
     //{
     //    if (myInventory[item] + 1 > item.maxNumberHeld)

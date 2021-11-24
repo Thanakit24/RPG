@@ -37,7 +37,7 @@ public class RangeSpirit2 : Enemy
     }
     public void InstantiatePuddle() //call through animation events 
     {
-        Instantiate(puddleProjectile, target.position, Quaternion.identity);
+        Instantiate(puddleProjectile, player.position, Quaternion.identity);
         instantiateCooldown = instantiateCooldownTimer;
         currentState = EnemyStates.IDLE; 
     }

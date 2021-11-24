@@ -77,11 +77,11 @@ public class InventoryManager : MonoBehaviour
             Destroy(inventoryContent.transform.GetChild(i).gameObject); //Get the child 
         }
     }
-    public void ItemDescriptionAndButton(string Description, bool Usable, InventoryItem newItem)
+    public virtual void ItemDescriptionAndButton(InventoryItem newItem)
     {
         currentItem = newItem;
-        descriptionText.text = Description;
-        useButton.SetActive(Usable);
+        descriptionText.text = newItem.itemDescription;
+        useButton.SetActive(newItem.usable);
     }
     // Update is called once per frame
     

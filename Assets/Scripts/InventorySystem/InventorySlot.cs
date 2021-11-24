@@ -31,7 +31,7 @@ public class InventorySlot : MonoBehaviour
     {
         if (thisItem)
         {
-            thisManager.ItemDescriptionAndButton(thisItem.itemDescription, thisItem.usable, thisItem);
+            thisManager.ItemDescriptionAndButton(thisItem);
         }
     }
     

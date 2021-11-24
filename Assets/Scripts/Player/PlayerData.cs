@@ -6,14 +6,23 @@ using UnityEngine;
 public class PlayerData
 {
     public int health;
-    public float[] position;
+    public int currency;
+    public int level;
+
+    //public List<>
+
 
     public PlayerData (PlayerController player)
     {
-        position = new float[3];
-        position[0] = player.transform.position.x;
-        position[1] = player.transform.position.y;
-        position[2] = player.transform.position.z;
+
+        //player.invManager.myInventory.Keys
+        health = player.health;
+        currency = player.invManager.currency;
+    }
+
+    public void OnBeforeSerialize()
+    {
+        Debug.Log("Before cerial");
     }
 
 }

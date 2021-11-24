@@ -14,18 +14,27 @@ public enum EnemyStates
 public class Enemy : MonoBehaviour
 {
     public EnemyStates currentState;
-    protected Rigidbody2D rb; //protected is private but for parents and children is accessible
+    protected Rigidbody2D rb; //protected is private but for parents and children is accessible //professor if u see this i died
     public int health;
     public float moveSpeed;
     public int enemyCurrency; //currency; 
 
-    //Attack
+    [Header("Attack")]
     public string enemyName;
     public int attackDamage;
-    public float attackRange = 10f;
     public float knockBack = 2.5f;
 
-    //Take Damage Effect
+    [Header("State Conditions & Patrol")]
+    public bool isPatrol = false;
+    public float patroltWaypointDistance = 2f;
+    public Transform[] patrolPoints;
+    public int patrolIndex;
+    public float waitTime = 0.5f;
+    private bool waitAtPatrol = false;
+    public float chaseRadius = 1f;
+    public float attackRange = 10f;
+
+    [Header("Take Damage Effect")]
     protected Animator animator;
     private SpriteRenderer enemySprite;
     public int numberOfFlashes;
@@ -34,11 +43,11 @@ public class Enemy : MonoBehaviour
     public float flashDuration;
     public float knockbackDuration = 0.5f;
 
-    public Transform target;
-    protected Vector3 facingDirection;
+    private Transform target;
+    public Transform player;
     public bool facingRight;
 
-    //Enemy Pathfinding
+    [Header("Enemy Pathfinding")]
     private Seeker seeker;
     private Path path;
     private int currentWaypoint;
@@ -60,8 +69,10 @@ public class Enemy : MonoBehaviour
     public delegate void OnEnemyDeath(Enemy e);
     public event OnEnemyDeath deathEvent;
 
+
     protected virtual void Start()
     {
+        target = player;
         rb = GetComponent<Rigidbody2D>();
         enemySprite = GetComponent<SpriteRenderer>();
         currentState = EnemyStates.IDLE;
@@ -109,16 +120,25 @@ public class Enemy : MonoBehaviour
         }
 
         animStuck = maxAnimStuck;
-        facingDirection = Vector2.zero;
-        if (Vector3.Distance(target.position, transform.position) <= attackRange)
+        //facingDirection = Vector2.zero;
+        float distanceFromPlayer = Vector3.Distance(player.transform.position, transform.position);
+        
+        if (isPatrol && distanceFromPlayer > chaseRadius)
         {
+            Patrol();
+        }
+        else if (distanceFromPlayer <= attackRange)
+        {
+            //attack radius
+            waitAtPatrol = false;
             ChangeStates(EnemyStates.AttackPrepare);
         }
         else
         {
+            //chase radius
+            target = player;
+            waitAtPatrol = false;
             ChangeStates(EnemyStates.Move);
-            facingDirection = target.position - transform.position;
-            facingDirection = facingDirection.normalized;
         }
 
         if (target.transform.position.x < transform.position.x && facingRight)
@@ -126,12 +146,30 @@ public class Enemy : MonoBehaviour
             Flip();
         }
 
-        else if (target.transform.position.x > transform.position.x  && !facingRight)
+        else if (target.transform.position.x > transform.position.x && !facingRight)
         {
             Flip();
         }
     }
 
+    private void Patrol()
+    {
+        ChangeStates(EnemyStates.Move);
+        target = patrolPoints[patrolIndex];
+        if (!waitAtPatrol && Vector3.Distance(transform.position, patrolPoints[patrolIndex].position) < patroltWaypointDistance)
+        {
+            waitAtPatrol = true;
+            patrolIndex++;
+            patrolIndex = patrolIndex % patrolPoints.Length;//modulo: remainder used to wrap to 0
+            StartCoroutine(WaitAtPatrol(waitTime));
+        }
+    }
+
+    IEnumerator WaitAtPatrol(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        waitAtPatrol = false;
+    }
 
     private void FixedUpdate()
     {
@@ -139,11 +177,12 @@ public class Enemy : MonoBehaviour
         {
             Move();
         }
+        
     }
 
     private void Move()
     {
-        if (path == null) return;
+        if (path == null || waitAtPatrol) return;
         if (currentWaypoint >= path.vectorPath.Count)
         {
             reachedEndOfPath = true;
@@ -163,7 +202,6 @@ public class Enemy : MonoBehaviour
             randMovedir = Random.insideUnitCircle;
             movementInterval = Random.Range(0, movementIntervalMax);
         }
-
 
         Vector2 direction = (((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized + randMovedir * drunkenness).normalized;
         Vector2 relativePos = direction * moveSpeed * Time.deltaTime;
@@ -188,12 +226,12 @@ public class Enemy : MonoBehaviour
     }
 
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, PlayerController player)
     {
         health -= damage;
         if (health <= 0)
         {
-            GiveCurrency();
+            player.invManager.GainCurrecy(enemyCurrency);
             Dead();
         }
     }
@@ -227,10 +265,6 @@ public class Enemy : MonoBehaviour
             temp++;
         }
     }
-    public void GiveCurrency()
-    {
-        PlayerCurrency.instance.GainCurrecy(enemyCurrency);
-    }
 
     private void Dead()
     {
@@ -261,4 +295,12 @@ public class Enemy : MonoBehaviour
             collision.GetComponent<PlayerController>().TakeDamage(1);
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        KongrooUtils.DrawGizmoCircle(transform.position, chaseRadius, Color.red);
+        KongrooUtils.DrawGizmoCircle(transform.position, attackRange, Color.yellow);
+    }
+
+    //im gonna go get some air for 5-10 mins, head start to hurt brb
 }

@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+
+
+
 
 
 [CreateAssetMenu(fileName = "Sample Item", menuName = "InventoryItem/Standard")]
 public class InventoryItem : ScriptableObject
 {
+    [ScriptableObjectId]
+    public string Id;
+
     //Create a scriptable object and assign its values
     public string itemName;
     public int itemCost = 1; 

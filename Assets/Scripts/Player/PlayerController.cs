@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     public float flashDuration;
     public Color flashColor;
     public Color regularColor;
+    public int currency = 0;
 
     [Header("Pickups")]
     public InventoryItem sample;
@@ -228,39 +229,40 @@ public class PlayerController : MonoBehaviour
                 Vector2 forceDirection = enemy.transform.position - transform.position;
                 Vector2 force = forceDirection.normalized * knockBack;
                 Enemy enemyController = enemy.GetComponent<Enemy>();
-                enemyController.TakeDamage(1);
+                enemyController.TakeDamage(1, this);
                 if (enemyController.health == 0)
                     return;
                 else
                     enemyController.EnemyDamagedEffect();
                 enemyController.KnockBack(force);
-
             }
         }
     }
     #endregion 
 
-    #region SAVE & LOAD DATA
-    public void SavePlayer()
-    {
-        SaveSystem.SavePlayer(this);
-    }
+    
 
-    public void LoadPlayer()
-    {
-        PlayerData data = SaveSystem.LoadPlayer();
+    //#region SAVE & LOAD DATA
+    //public void SavePlayer()
+    //{
+    //    SaveSystem.SavePlayer(this);
+    //}
 
-        health = data.health;
+    //public void LoadPlayer()
+    //{
+    //    PlayerData data = SaveSystem.LoadPlayer();
 
-        Vector3 position;
-        position.x = data.position[0];
-        position.y = data.position[1];
-        position.z = data.position[2];
-        transform.position = position;
+    //    health = data.health;
 
-    }
+    //    Vector3 position;
+    //    position.x = data.position[0];
+    //    position.y = data.position[1];
+    //    position.z = data.position[2];
+    //    transform.position = position;
 
-    #endregion 
+    //}
+
+    //#endregion 
 
     private void PlayerHealth()
     {
@@ -322,22 +324,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        DrawGizmoCircle(transform.position, interactRange, Color.red);
-    }
-
-    public static void DrawGizmoCircle(Vector2 center, float radius, Color color, int segments = 200)
-    {
-        Gizmos.color = color;
-        float angle = 0;
-        float increment = 2 * Mathf.PI / segments;
-        for (int i = 0; i < segments; i++)
-        {
-            Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-            Vector2 firstLoc = direction * radius + center;
-            angle += increment;
-            direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-            Vector2 secondLoc = direction * radius + center;
-            Gizmos.DrawLine(firstLoc, secondLoc);
-        }
+        KongrooUtils.DrawGizmoCircle(transform.position, interactRange, Color.red);
     }
 }

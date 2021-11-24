@@ -8,6 +8,7 @@ TagManager:
   - Invulnerable
   - Wall
   - InteractPrompt
+  - PlayerAttack
   layers:
   - Default
   - TransparentFX
