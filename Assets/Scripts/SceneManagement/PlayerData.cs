@@ -14,6 +14,7 @@ public class PlayerData
     //DO NOT Populate IN SCENETRANSITION
     public int level;
     public List<int> loadedScenes;
+    public List<int>[] sceneItems;
 
 
     public PlayerData(PlayerController player)

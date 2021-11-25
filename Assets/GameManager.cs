@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public PlayerController player;
     public TMP_Text currencyText;
     public TMP_Text interactText;
-
+    public ItemPickup[] itemPickups;
     private void Awake()
     {
         Time.timeScale = 1f;
