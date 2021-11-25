@@ -24,6 +24,9 @@ public class Enemy : MonoBehaviour
     public string enemyName;
     public int attackDamage;
     public float knockBack = 2.5f;
+    public int collisionDamage = 1;
+    public float attackCooldown;
+    public float attackCooldownTimer = 1f;
 
     [Header("State Conditions & Patrol")]
     public bool isPatrol = false;
@@ -49,6 +52,7 @@ public class Enemy : MonoBehaviour
     public bool facingRight;
 
     [Header("Enemy Pathfinding")]
+    public bool isPathfinding = true;
     private Seeker seeker;
     private Path path;
     private int currentWaypoint;
@@ -80,10 +84,13 @@ public class Enemy : MonoBehaviour
         currentState = EnemyStates.IDLE;
         animator = GetComponent<Animator>();
         idleHash = Animator.StringToHash(idleAnim);
-        seeker = GetComponent<Seeker>();
-        InvokeRepeating("UpdatePath", 0f, 0.1f);
+        if (isPathfinding)
+        {
+            seeker = GetComponent<Seeker>();
+            InvokeRepeating("UpdatePath", 0f, 0.1f);
+        }
         animStuck = maxAnimStuck;
-
+        attackCooldown = attackCooldownTimer;
     }
 
     void UpdatePath()
@@ -153,7 +160,7 @@ public class Enemy : MonoBehaviour
         else if (target.transform.position.x > transform.position.x && !facingRight)
         {
             if (!waitAtPatrol || !isPatrol)
-            Flip();
+                Flip();
         }
     }
 
@@ -178,15 +185,13 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (currentState == EnemyStates.Move)
-        {
-            Move();
-        }
-        
+        Move();
+
     }
 
-    private void Move()
+    protected virtual void Move()
     {
+        if (currentState != EnemyStates.Move) return;
         if (path == null || waitAtPatrol) return;
         if (currentWaypoint >= path.vectorPath.Count)
         {
@@ -288,7 +293,7 @@ public class Enemy : MonoBehaviour
         ChangeStates();
     }
 
-    public void ChangeStates(EnemyStates newState = EnemyStates.IDLE)
+    public virtual void ChangeStates(EnemyStates newState = EnemyStates.IDLE)
     {
         currentState = newState;
     }
@@ -297,7 +302,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerController>().TakeDamage(1);
+            collision.GetComponent<PlayerController>().TakeDamage(collisionDamage);
         }
     }
 

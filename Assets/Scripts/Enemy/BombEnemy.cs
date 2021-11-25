@@ -37,12 +37,5 @@ public class BombEnemy : Enemy
         triggerCollider.enabled = false;
         Destroy(gameObject);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            //print("enter collision");
-            collision.GetComponent<PlayerController>().TakeDamage(3);
-        }
-    }
+    
 }

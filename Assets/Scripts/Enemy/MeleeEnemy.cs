@@ -6,8 +6,6 @@ public class MeleeEnemy : Enemy
 {
     //Attack;
     public BoxCollider2D attackPoint;
-    public float attackCooldown;
-    public float attackCooldownTimer = 1f;
     public LayerMask playerMask;
   
     protected override void Start()
