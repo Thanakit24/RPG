@@ -213,7 +213,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af35c03a2c28fcb4f8ef391fef8c05f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 4.5
+  dashSpeed: 15
+  dashTimeMax: 0.15
+  dashCoolDownMax: 2
   isMoving: 0
   currentState: 0
   attackPoint: {fileID: 7691378020073081194}
@@ -316,7 +319,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.02841349, y: 0.020678699}
+  m_Offset: {x: 0.029779002, y: 0.10670638}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -327,7 +330,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.44864693, y: 0.7536944}
+  m_Size: {x: 0.4459159, y: 0.9257498}
   m_EdgeRadius: 0
 --- !u!50 &7691378018253447517
 Rigidbody2D:
@@ -436,8 +439,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -133993337
-  m_SortingLayer: 2
+  m_SortingLayerID: -668573383
+  m_SortingLayer: 4
   m_SortingOrder: 3
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -462,7 +465,7 @@ GameObject:
   - component: {fileID: 7691378020073081192}
   m_Layer: 11
   m_Name: AttackPoint
-  m_TagString: Untagged
+  m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -494,7 +497,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.2078989, y: -0.56184155}
+  m_Offset: {x: 0.031607866, y: -0.3529548}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -505,5 +508,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0871469, y: 0.82228124}
+  m_Size: {x: 1.7062159, y: 1.1435448}
   m_EdgeRadius: 0

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boomerang : MonoBehaviour
+public class BoomerProjectile : MonoBehaviour
 {
     public float speed;
     public float travelTime;

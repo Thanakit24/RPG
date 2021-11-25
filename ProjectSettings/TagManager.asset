@@ -10,6 +10,7 @@ TagManager:
   - InteractPrompt
   - PlayerAttack
   - BoomerBoss
+  - EnemySpawner
   layers:
   - Default
   - TransparentFX

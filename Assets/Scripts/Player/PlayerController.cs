@@ -164,8 +164,9 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldown < 0 && currentState != PlayerState.Dash)
         {
-
             currentState = PlayerState.Dash;
+            animator.SetTrigger("Dash");
+
             //dash torugh enemy
             //invulnerability    
             //disable gap collider

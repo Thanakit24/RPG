@@ -174,11 +174,9 @@ MonoBehaviour:
   collisionDamage: 1
   attackCooldown: 0
   attackCooldownTimer: 0.2
-  isPatrol: 1
-  patroltWaypointDistance: 0.5
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  isPatrol: 0
+  patroltWaypointDistance: 0
+  patrolPoints: []
   patrolIndex: 0
   waitTime: 2
   chaseRadius: 4

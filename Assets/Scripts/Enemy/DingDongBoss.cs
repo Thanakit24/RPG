@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BoomerAttacks
+public enum DingDongAttack
 {
     SingleThrow,
     DoubleThrow
 }
 
-public class BoomerBoss : Enemy
+public class DingDongBoss : Enemy
 {
     private BoomerAttacks attackState = BoomerAttacks.SingleThrow;
     public Transform leftShoot;
@@ -52,8 +52,17 @@ public class BoomerBoss : Enemy
 
     public void InstantiateProjectile(int isLeft) //call through animation events 
     {
-        if (isLeft == 0) Instantiate(boomerangPrefab, leftShoot.transform.position, Quaternion.identity);
-        else Instantiate(boomerangPrefab, rightShoot.transform.position, Quaternion.identity);
+        Transform spawnpos = rightShoot;
+        if (isLeft == 0)
+        {
+            spawnpos = leftShoot;
+        }
+        Vector2 direction = (player.position - transform.position).normalized;
+        float angle = Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x);
+        Boomerang boomerang = Instantiate(boomerangPrefab, spawnpos.transform.position, Quaternion.Euler(0, 0, angle)).GetComponent<Boomerang>();
+        boomerang.boss = this;
+        boomerang.initialDirection = direction;
+
     }
 
     public override void ChangeStates(EnemyStates newState = EnemyStates.IDLE)
@@ -71,7 +80,7 @@ public class BoomerBoss : Enemy
 
     protected override void Move()
     {
-        if (currentState != EnemyStates.Move) return;
+        if (!(currentState == EnemyStates.Move  || currentState == EnemyStates.AttackPrepare)) return;
         Vector2 facingDirection = player.transform.position - transform.position;
         rb.MovePosition(rb.position + facingDirection.normalized * moveSpeed * Time.deltaTime); //pathfinding trash
     }

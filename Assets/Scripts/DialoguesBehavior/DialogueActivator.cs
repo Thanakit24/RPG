@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tester : MonoBehaviour
+public class DialogueActivator : MonoBehaviour
 
 {
     public Conversation convo;

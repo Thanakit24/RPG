@@ -16,9 +16,9 @@ public class Enemy : MonoBehaviour
 {
     public EnemyStates currentState;
     protected Rigidbody2D rb; //protected is private but for parents and children is accessible
-    public int health;
-    public float moveSpeed;
-    public int enemyCurrency; //currency; 
+    public int health = 5;
+    public float moveSpeed = 2f;
+    public int enemyCurrency = 10; //currency; 
 
     [Header("Attack")]
     public string enemyName;
@@ -278,12 +278,13 @@ public class Enemy : MonoBehaviour
     }
     private void Dead()
     {
-        deathEvent?.Invoke(this);
         animator.SetTrigger("Dead");
+        
     }
 
     private void RemoveFromScene() //call through animation event 
     {
+        deathEvent?.Invoke(this);
         Destroy(gameObject);
     }
 
