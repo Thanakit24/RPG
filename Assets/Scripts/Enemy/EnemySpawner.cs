@@ -6,9 +6,12 @@ public class EnemySpawner : MonoBehaviour
 {
     public List<GameObject> enemies = new List<GameObject>();
     private List<Enemy> alive = new List<Enemy>();
+    public bool playerCollided = false; 
     public GameObject tilemap;
     public Animator tilemapAnimator;
     public float spawnInterval;
+    public float startInterval;
+    public float disableTime;
     public bool isTrap;
     // Start is called before the first frame update
     void Start()
@@ -23,9 +26,23 @@ public class EnemySpawner : MonoBehaviour
         {
             if (enemies.Count == 0 && alive.Count == 0)
             {
-                tilemap.SetActive(false);
+                Invoke("Disable", disableTime);
             }
         }
+
+        if (playerCollided)
+        {
+            startInterval -= Time.deltaTime;
+            if (startInterval <= 0)
+            {
+                StartCoroutine(SpawnEnemies());
+            }
+        }
+    }
+
+    private void Disable()
+    {
+        tilemap.SetActive(false);
     }
 
     private IEnumerator SpawnEnemies()
@@ -63,9 +80,10 @@ public class EnemySpawner : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             //print("Run coroutine");
-            StartCoroutine(SpawnEnemies());
+            playerCollided = true;
             tilemap.SetActive(enabled);
             tilemapAnimator.SetTrigger("Enabled");
+
         }
     }
 }

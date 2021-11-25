@@ -59,11 +59,6 @@ public class PlayerData
         }
     }
 
-
-
-
-
-
     public void OnBeforeSerialize()
     {
         Debug.Log("Before cerial");

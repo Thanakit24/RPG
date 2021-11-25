@@ -171,6 +171,9 @@ MonoBehaviour:
   enemyName: Bruh
   attackDamage: 1
   knockBack: 2.5
+  collisionDamage: 1
+  attackCooldown: 0
+  attackCooldownTimer: 0.2
   isPatrol: 1
   patroltWaypointDistance: 0.5
   patrolPoints:
@@ -187,14 +190,13 @@ MonoBehaviour:
   knockbackDuration: 0.2
   player: {fileID: 0}
   facingRight: 0
+  isPathfinding: 1
   nextWaypointDistance: 0.5
   movementIntervalMax: 3
   drunkenness: 0.09
   maxAnimStuck: 4
   idleAnim: MeleeEnemy_Run
   attackPoint: {fileID: 4318937912529131533}
-  attackCooldown: 0
-  attackCooldownTimer: 0.2
   playerMask:
     serializedVersion: 2
     m_Bits: 512
