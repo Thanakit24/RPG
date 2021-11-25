@@ -15,6 +15,11 @@ public class BoomerBoss : Enemy
     public Transform rightShoot;
     public GameObject boomerangPrefab;
 
+    protected override void Start()
+    {
+        base.Start();
+    }
+
     protected override void Update()
     {
         base.Update();

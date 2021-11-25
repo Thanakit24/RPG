@@ -252,7 +252,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("BoomerBoss"))
         {
             //Debug.Log("Enemy Hit");
             Rigidbody2D enemy = collision.GetComponent<Rigidbody2D>();

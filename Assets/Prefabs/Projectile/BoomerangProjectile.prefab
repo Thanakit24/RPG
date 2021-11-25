@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6808959048110289557}
   - component: {fileID: 344155485756274063}
-  - component: {fileID: 8020277496302789901}
   - component: {fileID: 1386244353243396621}
   - component: {fileID: 7143593031940901786}
+  - component: {fileID: 2046736124053633222}
   - component: {fileID: 6616434791052957480}
   m_Layer: 0
   m_Name: BoomerangProjectile
@@ -48,33 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  target: {fileID: 7691378018253447514, guid: bd63bf308729de243b6d87cccdb00ff9, type: 3}
---- !u!61 &8020277496302789901
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6669661562805544306}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.012019351, y: 0.016025603}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 2, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.43108895, y: 0.27884495}
-  m_EdgeRadius: 0
+  travelTime: 0
+  travelMaxTime: 2
+  boomBoss: {fileID: 2857658259069784567, guid: 54f30d46d61e2d645b96b95500373016,
+    type: 3}
 --- !u!50 &1386244353243396621
 Rigidbody2D:
   serializedVersion: 4
@@ -115,6 +92,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &2046736124053633222
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6669661562805544306}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.41
 --- !u!212 &6616434791052957480
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -151,9 +144,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingLayerID: 237534861
+  m_SortingLayer: 5
+  m_SortingOrder: 3
   m_Sprite: {fileID: -3392960576253996976, guid: 609a22271a6f65c4c856c8e6a6eb0643,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

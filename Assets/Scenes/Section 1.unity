@@ -12844,29 +12844,6 @@ PolygonCollider2D:
       - {x: 41.977177, y: -14.803252}
       - {x: 21.515512, y: 0.97202694}
       - {x: 9.623274, y: 0.9104018}
---- !u!1 &566040800 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1042000449396443542, guid: 161ebd1a606890742a0199a993da0cea,
-    type: 3}
-  m_PrefabInstance: {fileID: 1042000448207593018}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &566040804
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 566040800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
-  m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 0
-  m_FrequencyGain: 0
-  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1001 &618824930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13350,29 +13327,6 @@ Transform:
   m_Father: {fileID: 1714486988}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &898282068 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1042000449072049262, guid: 161ebd1a606890742a0199a993da0cea,
-    type: 3}
-  m_PrefabInstance: {fileID: 1042000448207593018}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &898282072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 898282068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2fba25a5cd15594e8f050a11e386c80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ConfineMode: 0
-  m_BoundingVolume: {fileID: 0}
-  m_BoundingShape2D: {fileID: 558389833}
-  m_ConfineScreenEdges: 1
-  m_Damping: 0
 --- !u!1 &936762166
 GameObject:
   m_ObjectHideFlags: 0
@@ -36984,6 +36938,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 898282072, guid: 161ebd1a606890742a0199a993da0cea, type: 3}
+      propertyPath: m_BoundingShape2D
+      value: 
+      objectReference: {fileID: 558389833}
     - target: {fileID: 1042000449072049260, guid: 161ebd1a606890742a0199a993da0cea,
         type: 3}
       propertyPath: m_RootOrder
@@ -37049,36 +37007,6 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 1738110373}
-    - target: {fileID: 1042000449072049263, guid: 161ebd1a606890742a0199a993da0cea,
-        type: 3}
-      propertyPath: m_Lens.OrthographicSize
-      value: 5.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1042000449396443540, guid: 161ebd1a606890742a0199a993da0cea,
-        type: 3}
-      propertyPath: m_XDamping
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1042000449396443540, guid: 161ebd1a606890742a0199a993da0cea,
-        type: 3}
-      propertyPath: m_YDamping
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1042000449396443540, guid: 161ebd1a606890742a0199a993da0cea,
-        type: 3}
-      propertyPath: m_LookaheadTime
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1042000449396443540, guid: 161ebd1a606890742a0199a993da0cea,
-        type: 3}
-      propertyPath: m_SoftZoneWidth
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1042000449396443540, guid: 161ebd1a606890742a0199a993da0cea,
-        type: 3}
-      propertyPath: m_SoftZoneHeight
-      value: 0.6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 161ebd1a606890742a0199a993da0cea, type: 3}
 --- !u!1001 &2135059855489511494
@@ -37552,11 +37480,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6503098367867517673, guid: b0d2fbad2c5d0f94181f83fea9201c6f,
-        type: 3}
-      propertyPath: orthographic size
-      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 6503098367867517676, guid: b0d2fbad2c5d0f94181f83fea9201c6f,
         type: 3}

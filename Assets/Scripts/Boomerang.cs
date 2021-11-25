@@ -5,27 +5,31 @@ using UnityEngine;
 public class Boomerang : MonoBehaviour
 {
     public float speed;
+    public float travelTime;
+    public float travelMaxTime;
     private Rigidbody2D rb;
-    public Transform target;
-    public BoomerBoss boomBoss;
+    private Transform target;
+    public Transform boomBoss;
     Vector2 moveDirection;
-
+    Vector2 newDirection;
     // Start is called before the first frame update
     void Start()
     {
-
+        travelTime = travelMaxTime;
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        boomBoss = GameObject.FindGameObjectWithTag("BoomerBoss").transform;
         rb = GetComponent<Rigidbody2D>();
-        //moveDirection = (target.transform.position - transform.position).normalized * speed;
-        //rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
+        moveDirection = (target.transform.position - transform.position).normalized * speed;
+        rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
     }
 
     private void Update()
     {
-        if (transform.position == target.transform.position)
+        travelTime -= Time.deltaTime;
+        if (travelTime < 0)
         {
-            moveDirection = (transform.position - target.transform.position.normalized) * speed;
-            rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
+            newDirection = Vector2.MoveTowards(transform.position, boomBoss.position, speed * Time.deltaTime);
+            rb.velocity = new Vector2(newDirection.x, newDirection.y);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
