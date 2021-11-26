@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c138c282a5685c44a90dc2c87258420b, type: 3}
-  m_Name: ArcCrystal
+  m_Name: Kezen21
   m_EditorClassIdentifier: 
-  Id: 20af996a-2de6-49f2-a5f1-e83e226c4cab
-  itemName: ArcCrystal
-  itemCost: 1
-  itemDescription: Let's the wind guide you..
-  itemSprite: {fileID: 21300000, guid: ccbc516dd7b5789448be83692f712ded, type: 3}
+  Id: 36ccb3fa-7ef2-4f4d-b292-7c9222c24867
+  itemName: Kezen
+  itemCost: 10
+  itemDescription: Slices through everything like a piece of cake..
+  itemSprite: {fileID: 0}
   maxNumberHeld: 1
   usable: 0
   buyable: 0
-  unique: 1
+  unique: 0

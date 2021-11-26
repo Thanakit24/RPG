@@ -52,8 +52,14 @@ public class BoomerBoss : Enemy
 
     public void InstantiateProjectile(int isLeft) //call through animation events 
     {
-        if (isLeft == 0) Instantiate(boomerangPrefab, leftShoot.transform.position, Quaternion.identity);
-        else Instantiate(boomerangPrefab, rightShoot.transform.position, Quaternion.identity);
+        Transform spawnpos = rightShoot;
+        if (isLeft == 0)
+        {
+            spawnpos = leftShoot;
+        }
+        BoomerProjectile projectile = Instantiate(boomerangPrefab, spawnpos.transform.position, Quaternion.identity).GetComponent<BoomerProjectile>();
+        projectile.boomBoss = transform;
+     
     }
 
     public override void ChangeStates(EnemyStates newState = EnemyStates.IDLE)
@@ -71,7 +77,7 @@ public class BoomerBoss : Enemy
 
     protected override void Move()
     {
-        if (currentState != EnemyStates.Move) return;
+        if (!(currentState == EnemyStates.Move || currentState == EnemyStates.AttackPrepare)) return;
         Vector2 facingDirection = player.transform.position - transform.position;
         rb.MovePosition(rb.position + facingDirection.normalized * moveSpeed * Time.deltaTime); //pathfinding trash
     }

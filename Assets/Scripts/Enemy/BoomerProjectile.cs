@@ -17,7 +17,7 @@ public class BoomerProjectile : MonoBehaviour
     {
         travelTime = travelMaxTime;
         target = GameObject.FindGameObjectWithTag("Player").transform;
-        boomBoss = GameObject.FindGameObjectWithTag("BoomerBoss").transform;
+        //boomBoss = GameObject.FindGameObjectWithTag("BoomerBoss").transform;
         rb = GetComponent<Rigidbody2D>();
         moveDirection = (target.transform.position - transform.position).normalized * speed;
         rb.velocity = new Vector2(moveDirection.x, moveDirection.y);

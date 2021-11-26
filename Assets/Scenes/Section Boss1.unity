@@ -11185,12 +11185,12 @@ PrefabInstance:
     - target: {fileID: 6503098367867517672, guid: b0d2fbad2c5d0f94181f83fea9201c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.8
+      value: 1.9688444
       objectReference: {fileID: 0}
     - target: {fileID: 6503098367867517672, guid: b0d2fbad2c5d0f94181f83fea9201c6f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.41
+      value: -16.778622
       objectReference: {fileID: 0}
     - target: {fileID: 6503098367867517672, guid: b0d2fbad2c5d0f94181f83fea9201c6f,
         type: 3}
@@ -11513,12 +11513,12 @@ PrefabInstance:
     - target: {fileID: 1042000449072049260, guid: 161ebd1a606890742a0199a993da0cea,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.8
+      value: 2.02
       objectReference: {fileID: 0}
     - target: {fileID: 1042000449072049260, guid: 161ebd1a606890742a0199a993da0cea,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.41
+      value: -21.01
       objectReference: {fileID: 0}
     - target: {fileID: 1042000449072049260, guid: 161ebd1a606890742a0199a993da0cea,
         type: 3}
@@ -15514,7 +15514,7 @@ MonoBehaviour:
   boomerBoss: {fileID: 1418787384}
   playerCam: {fileID: 365932853}
   bossCam: {fileID: 1057655120}
-  camCutscenetime: 0
+  camCutscenetime: 3
 --- !u!4 &1970018014
 Transform:
   m_ObjectHideFlags: 0
@@ -16462,17 +16462,22 @@ PrefabInstance:
     - target: {fileID: 2857658259069784565, guid: 54f30d46d61e2d645b96b95500373016,
         type: 3}
       propertyPath: attackRange
-      value: 7.78
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2857658259069784565, guid: 54f30d46d61e2d645b96b95500373016,
         type: 3}
       propertyPath: chaseRadius
-      value: 14.94
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2857658259069784565, guid: 54f30d46d61e2d645b96b95500373016,
         type: 3}
       propertyPath: flashDuration
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2857658259069784565, guid: 54f30d46d61e2d645b96b95500373016,
+        type: 3}
+      propertyPath: nextWaypointDistance
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2857658259069784567, guid: 54f30d46d61e2d645b96b95500373016,
         type: 3}
@@ -16542,7 +16547,7 @@ PrefabInstance:
     - target: {fileID: 2857658259069784570, guid: 54f30d46d61e2d645b96b95500373016,
         type: 3}
       propertyPath: m_TagString
-      value: BoomerBoss
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6000454565544624309, guid: 54f30d46d61e2d645b96b95500373016,
         type: 3}
@@ -16848,12 +16853,12 @@ PrefabInstance:
     - target: {fileID: 7691378018253447514, guid: bd63bf308729de243b6d87cccdb00ff9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.8
+      value: 2.02
       objectReference: {fileID: 0}
     - target: {fileID: 7691378018253447514, guid: bd63bf308729de243b6d87cccdb00ff9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.41
+      value: -21.01
       objectReference: {fileID: 0}
     - target: {fileID: 7691378018253447514, guid: bd63bf308729de243b6d87cccdb00ff9,
         type: 3}
@@ -16894,6 +16899,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691378018253447515, guid: bd63bf308729de243b6d87cccdb00ff9,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691378018253447515, guid: bd63bf308729de243b6d87cccdb00ff9,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691378018253447515, guid: bd63bf308729de243b6d87cccdb00ff9,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7691378018253447516, guid: bd63bf308729de243b6d87cccdb00ff9,
         type: 3}

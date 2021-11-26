@@ -6,6 +6,7 @@ public class PlayerInventory : InventoryManager
 {
     [Header("Self Reference")]
     public PlayerController player;
+    public Conversation cantUseConvo;
     public int currency = 0;
     public void UseButtonPressed()
     {
@@ -13,6 +14,7 @@ public class PlayerInventory : InventoryManager
         {
             if (!currentItem.Use(this))
             {
+                DialogueManager.StartConversation(cantUseConvo);
                 return;
             }
             DecreaseItem(currentItem);

@@ -9,16 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cc5d17b86bb81c4e94dceaac740d4b8, type: 3}
-  m_Name: HealthPotion
+  m_Script: {fileID: 11500000, guid: d57d98d7270296042839827b7f897d91, type: 3}
+  m_Name: MewChemic
   m_EditorClassIdentifier: 
-  Id: 4643335a-3a9b-4e40-80b0-82733464d1d3
-  itemName: Chemic19
-  itemCost: 20
-  itemDescription: Can treat your wounds
+  Id: 20bb4741-5814-449e-8c5c-8f98a13fb28c
+  itemName: Mew Chemic
+  itemCost: 100
+  itemDescription: You feel a concentrated life force within the flask
   itemSprite: {fileID: 21300000, guid: 038ac2dfdedf7774eb76516540d19b5d, type: 3}
-  maxNumberHeld: 7
+  maxNumberHeld: 1
   usable: 1
-  buyable: 0
+  buyable: 1
   unique: 0
-  healthIncrease: 1

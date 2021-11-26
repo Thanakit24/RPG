@@ -11,6 +11,9 @@ TagManager:
   - PlayerAttack
   - BoomerBoss
   - EnemySpawner
+  - Obstacle2
+  - Obstacle3
+  - Obstacle1
   layers:
   - Default
   - TransparentFX

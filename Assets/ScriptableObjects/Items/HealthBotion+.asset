@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: HealthBotion+
   m_EditorClassIdentifier: 
   Id: c6dd350e-ed88-4185-a749-f0530deedb44
-  itemName: HealthPotion+
-  itemCost: 50
+  itemName: Chemic69
+  itemCost: 100
   itemDescription: Can treat your wounds
   itemSprite: {fileID: 21300000, guid: 038ac2dfdedf7774eb76516540d19b5d, type: 3}
   maxNumberHeld: 3

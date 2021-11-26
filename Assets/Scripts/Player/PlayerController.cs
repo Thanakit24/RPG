@@ -13,6 +13,15 @@ public enum PlayerState
     Dash
 
 }
+
+public enum PlayerBuff
+{
+    Poison,
+    Attackup,
+    AttackDistUp,
+    NONE
+}
+
 public class PlayerController : MonoBehaviour
 {
     //Movement
@@ -53,13 +62,20 @@ public class PlayerController : MonoBehaviour
     public float invulnerableDurationTimer = 1;
     private float invulnerableDuration;
     public SpriteRenderer sr;
+    public SpriteRenderer swordSr;
     public int numberOfFlashes;
     public float flashDuration;
     public Color flashColor;
     public Color regularColor;
 
+    [Header("Buff")]
+    public PlayerBuff buff = PlayerBuff.NONE;
+    public int attack = 1;
+    //private float buffTimer;
+    //public float buffMaxTime = 3f;
+
     [Header("Pickups")]
-    public InventoryItem sample;
+    public InventoryItem dashItem;
     public PlayerInventory invManager;
     public GameObject invGO;
     //public ContactFilter2D interactFilter;
@@ -118,6 +134,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
     private void FixedUpdate()
     {
         Move();
@@ -162,7 +179,7 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(currentScene.buildIndex);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldown < 0 && currentState != PlayerState.Dash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldown < 0 && currentState != PlayerState.Dash && invManager.myInventory.ContainsKey(dashItem))
         {
             currentState = PlayerState.Dash;
             animator.SetTrigger("Dash");
@@ -251,26 +268,7 @@ public class PlayerController : MonoBehaviour
         attackPoint.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("BoomerBoss"))
-        {
-            //Debug.Log("Enemy Hit");
-            Rigidbody2D enemy = collision.GetComponent<Rigidbody2D>();
-            if (enemy != null)
-            {
-                Vector2 forceDirection = enemy.transform.position - transform.position;
-                Vector2 force = forceDirection.normalized * knockBack;
-                Enemy enemyController = enemy.GetComponent<Enemy>();
-                enemyController.TakeDamage(1, this);
-                if (enemyController.health == 0)
-                    return;
-                else
-                    enemyController.EnemyDamagedEffect();
-                enemyController.KnockBack(force);
-            }
-        }
-    }
+    
     #endregion
     private void PlayerHealth()
     {

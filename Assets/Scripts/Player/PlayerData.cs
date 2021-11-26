@@ -7,6 +7,7 @@ using System.Linq;
 public class PlayerData
 {
     public int health;
+    public int maxHealth;
     public int currency;
     public List<string> inventoryKeys = new List<string>();
     public List<int> inventoryValues = new List<int>();
@@ -20,6 +21,7 @@ public class PlayerData
     public PlayerData(PlayerController player)
     {
         health = player.health;
+        maxHealth = player.MaxOfHearts;
         currency = player.invManager.currency;
 
         foreach (InventoryItem item in player.invManager.myInventory.Keys)
@@ -36,6 +38,7 @@ public class PlayerData
     {
         player.health = health;
         player.invManager.currency = currency;
+        player.MaxOfHearts = maxHealth;
         for (int i = 0; i < inventoryKeys.Count; i++)
         {
             string id = inventoryKeys[i]; //this is how u iterate

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HealthPotion++
   m_EditorClassIdentifier: 
   Id: 58eb46a2-e232-4a27-a4d6-c59ba408312b
-  itemName: HealthPotion++
+  itemName: Chemic99
   itemCost: 100
   itemDescription: Legend Says it makes a whole new person, Ship of Theseus be damned
   itemSprite: {fileID: 21300000, guid: 038ac2dfdedf7774eb76516540d19b5d, type: 3}

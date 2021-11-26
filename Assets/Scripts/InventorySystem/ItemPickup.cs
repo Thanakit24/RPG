@@ -10,6 +10,7 @@ public class ItemPickup : MonoBehaviour
     private void OnEnable()
     {
         interactable.action += OnPickup;
+        interactable.interactMessage = $"Press E to pick up {item.name}";
     }
 
     private void OnDisable()

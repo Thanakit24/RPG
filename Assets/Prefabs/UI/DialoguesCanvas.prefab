@@ -462,8 +462,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7249445416590350748, guid: a239c5e950c7f3c459f504c2ffe0a357,
-          type: 3}
+      - m_Target: {fileID: 0}
         m_MethodName: ReadNext
         m_Mode: 1
         m_Arguments:
@@ -669,7 +668,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &7249445416080843764
 MonoBehaviour:
