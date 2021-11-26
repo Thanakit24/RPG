@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Section 2
+  transitionToLoadOn: 0
 --- !u!61 &5685424532551293391
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 public class SceneTransition : MonoBehaviour
 {
     public string sceneToLoad;
+    public int transitionToLoadOn;
+    public Transform spawnPoint;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +25,7 @@ public class SceneTransition : MonoBehaviour
         {
             SceneScript.instance.SaveSceneItems();
             SaveSystem.SavePlayer(GameManager.instance.player);
-            SceneManager.LoadScene(sceneToLoad);
+            SceneScript.instance.LoadScene(sceneToLoad, transitionToLoadOn);
         }
     }
 }

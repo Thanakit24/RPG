@@ -8,6 +8,7 @@ public class SceneScript : MonoBehaviour
     public static SceneScript instance;
     public List<int> loadedScenes = new List<int>();
     public List<int>[] sceneItems;
+    public int transitionIndex =0;
 
     private void Awake()
     {
@@ -15,11 +16,7 @@ public class SceneScript : MonoBehaviour
         {
             instance = this;
 
-            sceneItems = new List<int>[SceneManager.sceneCountInBuildSettings];
-            for (int i = 0; i < sceneItems.Length; i++)
-            {
-                sceneItems[i] = new List<int>();
-            }
+            InitScene();
 
         }
         else
@@ -28,6 +25,18 @@ public class SceneScript : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
+
+    void InitScene()
+    {
+        sceneItems = new List<int>[SceneManager.sceneCountInBuildSettings];
+        for (int i = 0; i < sceneItems.Length; i++)
+        {
+            sceneItems[i] = new List<int>();
+        }
+
+        
+    }
+
 
     void OnEnable()
     {
@@ -75,5 +84,9 @@ public class SceneScript : MonoBehaviour
         }
     }
 
-
+    public void LoadScene(string sceneToLoad, int index)
+    {
+        transitionIndex = index;
+        SceneManager.LoadScene(sceneToLoad);
+    }
 }

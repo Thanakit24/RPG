@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -32641,6 +32641,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1769923068}
     m_Modifications:
+    - target: {fileID: 6091712151018604676, guid: aa5ef37fd3b21e245b8c9834c7fc6211,
+        type: 3}
+      propertyPath: sceneToLoad
+      value: Section 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6091712151018604677, guid: aa5ef37fd3b21e245b8c9834c7fc6211,
         type: 3}
       propertyPath: m_RootOrder
@@ -51303,6 +51308,11 @@ PrefabInstance:
       propertyPath: interactText
       value: 
       objectReference: {fileID: 613350680}
+    - target: {fileID: 2905533532663018796, guid: c85315d06d55529448119720fd6f0c2e,
+        type: 3}
+      propertyPath: transitions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c85315d06d55529448119720fd6f0c2e, type: 3}
 --- !u!1001 &2937639199485979438

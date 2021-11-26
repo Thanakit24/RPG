@@ -22,4 +22,4 @@ MonoBehaviour:
   buyable: 1
   unique: 0
   attackIncrease: 1
-  increaseColor: {r: 1, g: 0, b: 0, a: 1}
+  increaseColor: {r: 1.4142135, g: 0, b: 0, a: 1}
