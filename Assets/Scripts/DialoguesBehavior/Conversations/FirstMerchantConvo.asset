@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50b346f0f6fa5ef43a3fee30e22fcac7, type: 3}
+  m_Name: FirstMerchantConvo
+  m_EditorClassIdentifier: 
+  allLines:
+  - speaker: {fileID: 11400000, guid: 061231230ff459d498cfc7de3dba5dac, type: 2}
+    dialogue: 'Hello '
+  - speaker: {fileID: 11400000, guid: b3d6b704e3c3635409be46f7fd8b749a, type: 2}
+    dialogue: You are alive? Wait what are you?
+  - speaker: {fileID: 11400000, guid: 061231230ff459d498cfc7de3dba5dac, type: 2}
+    dialogue: 'I am just one of the machines that your species created back a  few
+      centuries.
+
+'
+  - speaker: {fileID: 11400000, guid: b3d6b704e3c3635409be46f7fd8b749a, type: 2}
+    dialogue: 'Centuries!? How old is this place? '
+  - speaker: {fileID: 11400000, guid: 061231230ff459d498cfc7de3dba5dac, type: 2}
+    dialogue: "I am afraid to tell you that I am programmed to not tell any of that
+      information to anyone. \n"
+  - speaker: {fileID: 11400000, guid: b3d6b704e3c3635409be46f7fd8b749a, type: 2}
+    dialogue: Okay.. so what do you do?
+  - speaker: {fileID: 11400000, guid: 061231230ff459d498cfc7de3dba5dac, type: 2}
+    dialogue: "I take in materials and create something with them. \n"
+  - speaker: {fileID: 11400000, guid: 061231230ff459d498cfc7de3dba5dac, type: 2}
+    dialogue: "You could give me the shards that you have collected from those creatures.
+      I will see what I\n can do with them\n"

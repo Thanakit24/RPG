@@ -8,7 +8,7 @@ public class EnemySpawner : MonoBehaviour
     private List<Enemy> alive = new List<Enemy>();
     public bool playerCollided = false; 
     public GameObject tilemap;
-    public Animator tilemapAnimator;
+    //public Animator tilemapAnimator;
     public float spawnInterval;
     public float startInterval;
     public float disableTime;
@@ -82,7 +82,7 @@ public class EnemySpawner : MonoBehaviour
             //print("Run coroutine");
             playerCollided = true;
             tilemap.SetActive(enabled);
-            tilemapAnimator.SetTrigger("Enabled");
+            //tilemapAnimator.SetTrigger("Enabled");
 
         }
     }
