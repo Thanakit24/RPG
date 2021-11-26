@@ -401,7 +401,7 @@ MonoBehaviour:
   useButton: {fileID: 1367750641365470082}
   player: {fileID: 0}
   cantUseConvo: {fileID: 11400000, guid: 9b72b6870b09f7c4da5bca2f330ad543, type: 2}
-  currency: 0
+  currency: 29
 --- !u!1 &1367750641818077262
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public enum BoomerAttacks
 {
     SingleThrow,
     DoubleThrow
+
 }
 
 public class BoomerBoss : Enemy
@@ -23,6 +24,7 @@ public class BoomerBoss : Enemy
     protected override void Update()
     {
         base.Update();
+       
         //TODO put in enemy
         if (currentState == EnemyStates.AttackPrepare)
         {

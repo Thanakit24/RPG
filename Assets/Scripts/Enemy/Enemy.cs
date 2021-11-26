@@ -241,9 +241,8 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            ChangeStates(EnemyStates.Dead);
-            player.invManager.GainCurrecy(enemyCurrency);
-            Dead();
+            
+            Dead(player);
         }
     }
     public void KnockBack(Vector2 force)
@@ -276,15 +275,17 @@ public class Enemy : MonoBehaviour
             temp++;
         }
     }
-    private void Dead()
+    private void Dead(PlayerController player)
     {
+        rb.velocity = Vector2.zero;
+        ChangeStates(EnemyStates.Dead);
+        player.invManager.GainCurrecy(enemyCurrency);
         animator.SetTrigger("Dead");
-        
+        deathEvent?.Invoke(this);
     }
 
     private void RemoveFromScene() //call through animation event 
     {
-        deathEvent?.Invoke(this);
         Destroy(gameObject);
     }
 

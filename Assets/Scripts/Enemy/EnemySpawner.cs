@@ -70,7 +70,7 @@ public class EnemySpawner : MonoBehaviour
     private void EnemyDied(Enemy e)
     {
         e.deathEvent -= EnemyDied;
-        Destroy(e.gameObject);
+        //Destroy(e.gameObject);
         alive.Remove(e);
 
     }

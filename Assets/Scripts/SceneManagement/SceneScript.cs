@@ -50,15 +50,15 @@ public class SceneScript : MonoBehaviour
     {
         if (loadedScenes.Contains(scene.buildIndex))
         {
-            EnemySpawner[] enemySpawners = FindObjectsOfType<EnemySpawner>();
-            for (int i = 0; i < enemySpawners.Length; i++)
+            //EnemySpawner[] enemySpawners = FindObjectsOfType<EnemySpawner>();
+            GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("LoadOnce");
+            for (int i = 0; i < objectsToDestroy.Length; i++)
             {
-                Destroy(enemySpawners[i].gameObject);
+                Destroy(objectsToDestroy[i]);
             }
         }
         else
         {
-            print("Visited ");
             loadedScenes.Add(scene.buildIndex);
         }
         LoadSceneItems(scene.buildIndex);
