@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Increase Attack", menuName = "InventoryItem/BuffPotions")]
+[CreateAssetMenu(fileName = "Increase Knockback", menuName = "InventoryItem/Knockback")]
 public class KnockBackBuffPotion : InventoryItem
 {
-    public int attackIncrease = 1;
+    public float boop = 10f;
     public override bool Use(PlayerInventory inverntory)
     {
-        inverntory.player.knockBack += 10;
-        //inverntory.player.attack += attackIncrease;
+        inverntory.player.knockBack += boop;
         return true;
     }
 }

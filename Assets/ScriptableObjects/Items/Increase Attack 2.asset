@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 354a1968c366f424ab3a7644474f3390, type: 3}
-  m_Name: Increase Attack
+  m_Name: Increase Attack 2
   m_EditorClassIdentifier: 
   Id: e9cf6ca7-3ce2-4d78-88c4-f4427e6bd8bc
-  itemName: amgiL1
-  itemCost: 50
-  itemDescription: Your sword really seems to like this stuff
+  itemName: amgiL2
+  itemCost: 75
+  itemDescription: Boosts attack damage drastically, well maybe.
   itemSprite: {fileID: 0}
-  maxNumberHeld: 2
+  maxNumberHeld: 1
   usable: 1
-  buyable: 1
+  buyable: 0
   unique: 0
-  attackIncrease: 1
+  attackIncrease: 2
   increaseColor: {r: 1.4142135, g: 0, b: 0, a: 1}
