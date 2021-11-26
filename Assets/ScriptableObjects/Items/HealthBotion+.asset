@@ -15,8 +15,8 @@ MonoBehaviour:
   Id: c6dd350e-ed88-4185-a749-f0530deedb44
   itemName: Chemic69
   itemCost: 50
-  itemDescription: Can treat your wounds
-  itemSprite: {fileID: 21300000, guid: 038ac2dfdedf7774eb76516540d19b5d, type: 3}
+  itemDescription: Heals good man
+  itemSprite: {fileID: 21300000, guid: 056fb71ceb7a9554b83bf6898b07734f, type: 3}
   maxNumberHeld: 3
   usable: 1
   buyable: 0

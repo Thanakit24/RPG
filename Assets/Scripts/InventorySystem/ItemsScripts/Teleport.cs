@@ -8,19 +8,24 @@ public class Teleport : MonoBehaviour
     public int transitionToLoadOn;
     public string sceneToLoad;
 
-    void TeleportToScene(PlayerController p)
+    void TeleportToScene()
     {
+        print("tping");
         SceneScript.instance.LoadScene(sceneToLoad, transitionToLoadOn);
-        
     }
+    void StartTeleport(PlayerController p)
+    {
+        Invoke("TeleportToScene", 0.2f);
+    }
+
     private void OnEnable()
     {
-        interactable.action += TeleportToScene;
+        interactable.action += StartTeleport;
     }
 
     private void OnDisable()
     {
-        interactable.action -= TeleportToScene;
+        interactable.action -= StartTeleport;
     }
 }
 

@@ -13,6 +13,7 @@ public class EnemySpawner : MonoBehaviour
     public float startInterval;
     public float disableTime;
     public bool isTrap;
+    public bool started = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,8 +34,9 @@ public class EnemySpawner : MonoBehaviour
         if (playerCollided)
         {
             startInterval -= Time.deltaTime;
-            if (startInterval <= 0)
+            if (startInterval <= 0 && !started)
             {
+                started = true;
                 StartCoroutine(SpawnEnemies());
             }
         }

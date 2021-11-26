@@ -8,6 +8,13 @@ public class PlayerInventory : InventoryManager
     public PlayerController player;
     public Conversation cantUseConvo;
     public int currency = 0;
+
+    protected override void Start()
+    {
+        base.Start();
+        player = GameManager.instance.player;
+    }
+
     public void UseButtonPressed()
     {
         if (currentItem && myInventory.ContainsKey(currentItem))

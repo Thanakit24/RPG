@@ -310,6 +310,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(FlashDamage());
             if (health <= 0)
             {
+                GameManager.instance.PlayerDied();
                 //call game manager death
             }
         }

@@ -6,6 +6,7 @@ public class ItemPickup : MonoBehaviour
 {
     public Interactable interactable;
     public InventoryItem item;
+    public bool destroyOnPickup = true;
     // Start is called before the first frame update
     private void OnEnable()
     {
@@ -22,7 +23,10 @@ public class ItemPickup : MonoBehaviour
     {
         if (p.invManager.AddItem(item))
         {
-            Destroy(this.gameObject);
+            if (destroyOnPickup)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 

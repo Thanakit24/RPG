@@ -86,7 +86,13 @@ public class SceneScript : MonoBehaviour
 
     public void LoadScene(string sceneToLoad, int index)
     {
+        SaveSceneItems();
+        SaveSystem.SavePlayer(GameManager.instance.player);
         transitionIndex = index;
         SceneManager.LoadScene(sceneToLoad);
+    }
+    public void RestartFromSave()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

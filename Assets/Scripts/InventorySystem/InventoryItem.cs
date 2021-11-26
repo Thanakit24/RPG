@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Sample Item", menuName = "InventoryItem/Standard")]
 public class InventoryItem : ScriptableObject
 {
-    [ScriptableObjectId]
+    //[ScriptableObjectId]
     public string Id;
 
     //Create a scriptable object and assign its values

@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Mew Chemic
   itemCost: 100
   itemDescription: You feel a concentrated life force within the flask
-  itemSprite: {fileID: 21300000, guid: 038ac2dfdedf7774eb76516540d19b5d, type: 3}
+  itemSprite: {fileID: 21300000, guid: ea291ebd59db2174c9cfa1d0cf539fdf, type: 3}
   maxNumberHeld: 1
   usable: 1
   buyable: 1

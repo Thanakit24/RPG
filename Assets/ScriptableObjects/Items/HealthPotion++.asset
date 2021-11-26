@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Chemic99
   itemCost: 100
   itemDescription: Legend says it makes a whole new person, Ship of Theseus be damned
-  itemSprite: {fileID: 21300000, guid: 038ac2dfdedf7774eb76516540d19b5d, type: 3}
+  itemSprite: {fileID: 21300000, guid: a63507424586aaf45abd1ccc081d3369, type: 3}
   maxNumberHeld: 2
   usable: 1
   buyable: 0

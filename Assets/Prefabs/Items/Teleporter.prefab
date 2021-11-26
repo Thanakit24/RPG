@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9ee650f100ca71458198cc67e3e1ebe, type: 2}
+  - {fileID: 2100000, guid: 7262280a2c1e0494abad7ed434ba5f0a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -112,7 +112,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactable: {fileID: 7277853176709871072}
-  item: {fileID: 11400000, guid: 0c7f51cf856042b46948bcaee715afb0, type: 2}
+  item: {fileID: 11400000, guid: 59283bad41255e34e9dd89add46229dc, type: 2}
+  destroyOnPickup: 1
 --- !u!58 &7277853176709871074
 CircleCollider2D:
   m_ObjectHideFlags: 0

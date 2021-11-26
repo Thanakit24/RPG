@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: InstagibberPot
   itemCost: 500
   itemDescription: 'You become Legend27. It kills anything that touches your sword. '
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: e16cabf5be8514049840755e6e61ebba, type: 3}
   maxNumberHeld: 1
   usable: 0
   buyable: 0
