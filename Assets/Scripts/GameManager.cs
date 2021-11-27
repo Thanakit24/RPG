@@ -37,5 +37,6 @@ public class GameManager : MonoBehaviour
     {
         deadUI.SetActive(true);
         Time.timeScale = 0f;
+        Destroy(player);
     }
 }

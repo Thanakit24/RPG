@@ -7624,7 +7624,7 @@ PrefabInstance:
     - target: {fileID: 3236515204452280935, guid: d90687c3a933c1d47b45ff220f44d76f,
         type: 3}
       propertyPath: enemies.Array.size
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3236515204452280935, guid: d90687c3a933c1d47b45ff220f44d76f,
         type: 3}
@@ -12294,12 +12294,12 @@ PrefabInstance:
     - target: {fileID: 6503098367867517672, guid: b0d2fbad2c5d0f94181f83fea9201c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.9765067
+      value: 2.02
       objectReference: {fileID: 0}
     - target: {fileID: 6503098367867517672, guid: b0d2fbad2c5d0f94181f83fea9201c6f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -16.778708
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6503098367867517672, guid: b0d2fbad2c5d0f94181f83fea9201c6f,
         type: 3}
@@ -12711,7 +12711,7 @@ PrefabInstance:
     - target: {fileID: 1042000449072049260, guid: 161ebd1a606890742a0199a993da0cea,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -20.4
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1042000449072049260, guid: 161ebd1a606890742a0199a993da0cea,
         type: 3}
@@ -17826,6 +17826,11 @@ PrefabInstance:
       objectReference: {fileID: 1385504830}
     - target: {fileID: 7691378018253447513, guid: bd63bf308729de243b6d87cccdb00ff9,
         type: 3}
+      propertyPath: health
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691378018253447513, guid: bd63bf308729de243b6d87cccdb00ff9,
+        type: 3}
       propertyPath: isMoving
       value: 0
       objectReference: {fileID: 0}
@@ -17844,6 +17849,11 @@ PrefabInstance:
       propertyPath: invManager
       value: 
       objectReference: {fileID: 201390591}
+    - target: {fileID: 7691378018253447513, guid: bd63bf308729de243b6d87cccdb00ff9,
+        type: 3}
+      propertyPath: MaxOfHearts
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7691378018253447513, guid: bd63bf308729de243b6d87cccdb00ff9,
         type: 3}
       propertyPath: dashTimeMax
@@ -17912,7 +17922,7 @@ PrefabInstance:
     - target: {fileID: 7691378018253447514, guid: bd63bf308729de243b6d87cccdb00ff9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -20.4
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 7691378018253447514, guid: bd63bf308729de243b6d87cccdb00ff9,
         type: 3}
