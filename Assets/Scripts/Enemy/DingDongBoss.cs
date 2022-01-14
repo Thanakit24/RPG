@@ -15,11 +15,6 @@ public class DingDongBoss : Enemy
     public Transform rightShoot;
     public GameObject boomerangPrefab;
 
-    protected override void Start()
-    {
-        base.Start();
-    }
-
     protected override void Update()
     {
         base.Update();
@@ -64,19 +59,6 @@ public class DingDongBoss : Enemy
         boomerang.initialDirection = direction;
 
     }
-
-    public override void ChangeStates(EnemyStates newState = EnemyStates.IDLE)
-    {
-        base.ChangeStates(newState);
-        switch (newState)
-        {
-            case EnemyStates.AttackPrepare:
-                //Decide new attack
-                //attackState = attackState + 1 % 2;
-                break;
-        }
-    }
-
 
     protected override void Move()
     {
