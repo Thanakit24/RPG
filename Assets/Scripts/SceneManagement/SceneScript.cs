@@ -33,8 +33,6 @@ public class SceneScript : MonoBehaviour
         {
             sceneItems[i] = new List<int>();
         }
-
-        
     }
 
 

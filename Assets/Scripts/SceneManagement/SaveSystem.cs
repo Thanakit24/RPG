@@ -5,6 +5,7 @@ public static class SaveSystem
 {
     public static void SavePlayer (PlayerController player)
     {
+        //TODO use static class in memory to also store PlayerData
         BinaryFormatter formatter = new BinaryFormatter();
 
         string path = Application.persistentDataPath + "/Player.bn";
@@ -19,6 +20,7 @@ public static class SaveSystem
     public static PlayerData LoadPlayer()
     {
         string path = Application.persistentDataPath + "/Player.bn";
+        Debug.Log($"Finding player save in {path}");
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -31,7 +33,7 @@ public static class SaveSystem
         }
         else
         {
-            Debug.LogError("Save file not found inside" + path);
+            Debug.LogWarning("Save file not found inside" + path);
             return null;
         }
     }
