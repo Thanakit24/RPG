@@ -17,17 +17,22 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         instance = this;
-        
-       
     }
 
     private void Start()
     {
         PlayerData data = SaveSystem.LoadPlayer();
-        data.PopulatePlayer(player);
-        player.transform.position = transitions[SceneScript.instance.transitionIndex].spawnPoint.position;
-
+        if (data == null)
+        {
+            //Start tutorial or go to home screen
+        }
+        else
+        {
+            data.PopulatePlayer(player);
+            player.transform.position = transitions[SceneScript.instance.transitionIndex].spawnPoint.position;
+        }
     }
+
     private void Update()
     {
         currencyText.text = player.invManager.currency.ToString();
