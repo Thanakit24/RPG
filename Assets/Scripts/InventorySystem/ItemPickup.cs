@@ -21,6 +21,7 @@ public class ItemPickup : MonoBehaviour
 
     void OnPickup(PlayerController p)
     {
+        print($"Picking up item {item.name}");
         if (p.invManager.AddItem(item))
         {
             if (destroyOnPickup)

@@ -22,7 +22,6 @@ public class InventorySlot : MonoBehaviour
         if (thisItem)
         { 
             itemImage.sprite = thisItem.itemSprite; //set this slot sprite to the item sprite
-            Debug.Log("Set slot sprite to item sprite");
             itemNumberText.text = $"{numberHeld}/{thisItem.maxNumberHeld}";
         }
     }

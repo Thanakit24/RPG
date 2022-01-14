@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,10 +16,11 @@ public class Teleport : MonoBehaviour
     }
     void StartTeleport(PlayerController p)
     {
-        Invoke("TeleportToScene", 0.2f);
+        // Invoke("TeleportToScene", 0.2f);
+        TeleportToScene();
     }
 
-    private void OnEnable()
+    private void Start()
     {
         interactable.action += StartTeleport;
     }
