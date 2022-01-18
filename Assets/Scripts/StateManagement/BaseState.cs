@@ -5,17 +5,23 @@ using UnityEngine;
 [System.Serializable]
 public class BaseState
 {
-    [HideInInspector] private StateMachine daddy;
+    [HideInInspector] public StateMachine daddy;
+    public string stateName = "Base State";
 
     public BaseState (StateMachine daddy)
     {
         this.daddy = daddy;
+        this.stateName = this.GetType().Name;
     }
 
-    public virtual void Start()
+    public virtual void OnEnter()
     {
     }
     public virtual void Update()
+    {
+       
+    }
+    public virtual void FixedUpdate()
     {
 
     }

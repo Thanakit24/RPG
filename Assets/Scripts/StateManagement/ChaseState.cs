@@ -10,9 +10,9 @@ public class ChaseState : BaseState
     {
     }
 
-    public override void Start()
+    public override void OnEnter()
     {
-        base.Start();
+        base.OnEnter();
     }
 
     public override void OnExit()
