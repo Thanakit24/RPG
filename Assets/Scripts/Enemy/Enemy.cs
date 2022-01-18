@@ -305,6 +305,7 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.GetComponent<PlayerController>().TakeDamage(collisionDamage);
+            
         }
     }
 

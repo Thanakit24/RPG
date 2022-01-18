@@ -29,28 +29,27 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed;
     public float dashSpeed;
 
-    private float dashTime;
-    public float dashTimeMax = 0.5f;
+    public float dashTime = 0.5f;
+    //public float dashTimeMax = 0.5f;
 
-    private float dashCooldown;
-    public float dashCoolDownMax = 2f;
+    //public float dashCooldown = 0.5f;
 
     private Rigidbody2D rb;
-    public bool isMoving = false;
     private Vector2 moveDirection; //changing sprite direction
     private Vector2 lastDirection;
     public PlayerState currentState;
     private Animator animator;
 
+    public bool animLock = false;
+    private float animTimer;
+
     //Attack
     [Header("Attack")]
     public GameObject attackPoint;
-    public float attackCooldown;
-    public float attackCooldownTimer = 1f;
+    public float attackCooldown = 1f;
     public int attackDamage = 1;
     public float knockBack;
     public LayerMask enemyMask;
-    public bool cantAttack = false;
 
     //Health
     [Header("Health")]
@@ -92,9 +91,6 @@ public class PlayerController : MonoBehaviour
     {
         attackPoint.SetActive(false);
         currentState = PlayerState.Default;
-        attackCooldown = attackCooldownTimer;
-        dashTime = dashTimeMax;
-        dashCooldown = dashCoolDownMax;
         invulnerableDuration = invulnerableDurationTimer;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -107,16 +103,14 @@ public class PlayerController : MonoBehaviour
         sr.sortingOrder = Mathf.FloorToInt(transform.position.y * -100);
         PlayerHealth();
         ProcessInputs();
+        AnimUpdate();
 
         switch (currentState)
         {
             case PlayerState.Dash:
-                dashTime -= Time.deltaTime;
-                dashCooldown = dashCoolDownMax;
-                if (dashTime <= 0)
+                if (animTimer <= 0)
                 {
                     currentState = PlayerState.Default;
-                    dashTime = dashTimeMax;
                 }
                 break;
 
@@ -128,9 +122,6 @@ public class PlayerController : MonoBehaviour
                     invulnerableDuration = invulnerableDurationTimer;
                 }
                 break;
-            default:
-                dashCooldown -= Time.deltaTime;
-                break;
         }
 
     }
@@ -141,35 +132,41 @@ public class PlayerController : MonoBehaviour
     }
     void ProcessInputs()
     {
-        moveDirection = Vector2.zero;
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
-
         moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-
         if (moveDirection != Vector2.zero)
-        {
             lastDirection = moveDirection;
-        }
 
-        if (cantAttack)
+        if (animLock)
         {
-            attackCooldown -= Time.deltaTime;
-            if (attackCooldown <= 0)
+            animTimer -= Time.deltaTime;
+            if (animTimer <= 0)
             {
-                cantAttack = false;
-                attackCooldown = attackCooldownTimer;
+                animLock = false;
+            }
+        }
+        else
+        {
+            if (Input.GetButtonDown("Melee") && !Input.GetButton("Modifier"))
+            {
+                Attack();
+                //Light melee
+            }
+            else if (Input.GetButton("Melee") && Input.GetButton("Modifier"))
+            {
+                //Charge up heavy melee attack
+            }
+            if (Input.GetButton("Ranged") && !Input.GetButton("Modifier"))
+            {
+                //Aim light ranged attack (Bow, machinegun, shotgun)
+            }
+            else if (Input.GetButton("Ranged") && Input.GetButton("Modifier"))
+            {
+                //Heavy or alternate ranged attack
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !cantAttack)
-        {
-            Attack();
-        }
-        else if (currentState == PlayerState.Default || currentState == PlayerState.invulnerable)
-        {
-            UpdateMoveAnimations();
-        }
+        //if (currentState == PlayerState.Default || currentState == PlayerState.invulnerable)
+        //    UpdateMoveAnimations();
 
         //SAMPLE DEBUGGING CODE
         if (Input.GetKeyDown(KeyCode.R))
@@ -179,8 +176,9 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(currentScene.buildIndex);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldown < 0 && currentState != PlayerState.Dash && invManager.myInventory.ContainsKey(dashItem))
+        if (Input.GetButtonDown("Dash") && currentState != PlayerState.Dash/* && invManager.myInventory.ContainsKey(dashItem)*/)
         {
+            animTimer = dashTime;
             currentState = PlayerState.Dash;
             animator.SetTrigger("Dash");
 
@@ -232,21 +230,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    void UpdateMoveAnimations()
+    void AnimUpdate()
     {
         if (moveDirection != Vector2.zero)  //saves last anim frame
         {
+            animator.SetBool("Moving", true);
             animator.SetFloat("Horizontal", moveDirection.x);
             animator.SetFloat("Vertical", moveDirection.y);
-            animator.SetFloat("Magnitude", moveDirection.magnitude);
-            animator.SetBool("Moving", true);
         }
         else
         {
+            animator.SetFloat("Horizontal", lastDirection.x);
+            animator.SetFloat("Vertical", lastDirection.y);
             animator.SetBool("Moving", false);
         }
     }
+    //void UpdateMoveAnimations()
+    //{
+    //    if (moveDirection != Vector2.zero)  //saves last anim frame
+    //    {
+    //        animator.SetFloat("Horizontal", moveDirection.x);
+    //        animator.SetFloat("Vertical", moveDirection.y);
+    //        animator.SetFloat("Magnitude", moveDirection.magnitude);
+    //        animator.SetBool("Moving", true);
+    //    }
+    //    else
+    //    {
+    //        animator.SetBool("Moving", false);
+    //    }
+    //}
     #endregion
 
     #region AttackBehavior
@@ -258,7 +270,7 @@ public class PlayerController : MonoBehaviour
         attackPoint.transform.rotation = Quaternion.Euler(0, 0, angle);
         //print(angle);
 
-        cantAttack = true;
+        //cantAttack = true;
         animator.SetTrigger("Attacking");
         attackPoint.SetActive(true);
     }
