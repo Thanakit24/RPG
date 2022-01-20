@@ -95,7 +95,7 @@ namespace PlayerStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            currentDashSpeed = Mathf.Lerp(player.initialDashSpeed, player.endDashSpeed, 1 - age/player.dashDur);
+            currentDashSpeed = Mathf.Lerp(player.initialDashSpeed, player.endDashSpeed, 1 - age / player.dashDur);
             player.rb.velocity = currentDashSpeed * player.lastDir;
         }
         public override void OnExit()
@@ -112,18 +112,15 @@ namespace PlayerStates
     {
         public LightAtk(Player daddy) : base(daddy)
         {
-            age = player.atkDur;
+            age = player.attSeqTimes[player.atkSeq];
             isTimed = true;
         }
         public override void OnEnter()
         {
             base.OnEnter();
-            if (player.atkSeq < player.atkSeqMax)
-                player.atkSeq++;
-            else if (player.atkSeq >= player.atkSeqMax)
-                player.atkSeq = 1;
             player.anim.SetInteger(Player.AtkSeqKey, player.atkSeq);
             player.anim.SetBool(Player.LightAtkKey, true);
+            player.atkSeq = player.atkSeq + 1 % player.attSeqTimes.Length;
         }
         protected override void ProcessInputs()
         {
@@ -145,9 +142,9 @@ namespace PlayerStates
             base.OnExit();
             player.rb.velocity = Vector2.zero;
             if (player.bufferedState == null)
-                player.atkSeq = player.atkSeqMax;
+                player.atkSeq = 0;
+
             player.anim.SetBool(Player.LightAtkKey, false);
-            
             if (player.moveDir != Vector2.zero)
                 player.lastDir = player.moveDir;
         }

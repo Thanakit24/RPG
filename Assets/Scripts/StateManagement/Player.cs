@@ -21,8 +21,9 @@ public class Player : StateMachine
 
     #region Melee Attack Variables
     public float atkDur = 0.2f;
-    public int atkSeq;
-    public int atkSeqMax = 3;
+    public int atkSeq = 0;
+    public float[] attSeqTimes = {0.5f, .5f, 1f};
+
     public float chargeDurMax = 1f;
     #endregion
 
