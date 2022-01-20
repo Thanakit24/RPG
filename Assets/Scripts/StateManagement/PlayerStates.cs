@@ -6,47 +6,31 @@ namespace PlayerStates
 {
     public class BasePlayerState : BaseState
     {
-        //PlayerStats
         protected Player player;
-
         public BasePlayerState(Player daddy) : base(daddy)
         {
             player = daddy;
         }
         public override void Update()
         {
+            base.Update();
+            player.moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
             ProcessInputs();
         }
-
         protected virtual void ProcessInputs()
         {
-            player.moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-
-            if (Input.GetButton("Melee"))
-            {
-                //Charge up melee
-            }
-            if (Input.GetButtonUp("Melee"))
-            {
-                //Fire melee
-            }
-
-            if (Input.GetButton("Ranged") && !Input.GetButton("Modifier"))
-            {
-                //Aim light ranged attack (Bow, machinegun, shotgun)
-            }
-            else if (Input.GetButton("Ranged") && Input.GetButton("Modifier"))
-            {
-                //Heavy or alternate ranged attack
-            }
+            if (Input.GetButtonDown("Dash"))
+                daddy.ChangeState(new Dash(player));
+            if (Input.GetButtonDown("LightAtk"))
+                daddy.ChangeState(new LightAtk(player));
+            if (Input.GetButtonDown("HeavyAtk"))
+                daddy.ChangeState(new HeavyAtk(player));
         }
-
     }
 
     public class Idle : BasePlayerState
     {
         public Idle(Player daddy) : base(daddy) { }
-
         public override void Update()
         {
             base.Update();
@@ -58,20 +42,12 @@ namespace PlayerStates
             base.FixedUpdate();
             player.rb.velocity = Vector2.zero;
         }
-
-        protected override void ProcessInputs()
-        {
-            base.ProcessInputs();
-            //if (Input)
-        }
     }
 
     public class Move : BasePlayerState
     {
 
         public Move(Player daddy) : base(daddy) { }
-
-        // Update is called once per frame
         public override void Update()
         {
             base.Update();
@@ -79,7 +55,6 @@ namespace PlayerStates
                 daddy.ChangeState(new Idle(player));
             else
                 player.lastDir = player.moveDir;
-
         }
         public override void FixedUpdate()
         {
@@ -87,49 +62,157 @@ namespace PlayerStates
             player.rb.velocity = player.moveSpeed * player.moveDir;
         }
     }
+
     public class Dash : BasePlayerState
     {
-        public Dash(Player daddy) : base(daddy) { }
-        private float dashTimer;
-
+        private float currentDashSpeed;
+        public Dash(Player daddy) : base(daddy)
+        {
+            age = player.dashDur;
+            isTimed = true;
+        }
         public override void OnEnter()
         {
             base.OnEnter();
-            dashTimer = player.dashDur;
+            player.anim.SetBool(Player.DashKey, true);
         }
-        public override void Update()
-        {
-            base.Update();
-            dashTimer -= Time.deltaTime;
-            if (dashTimer <= 0)
-                daddy.GotoBase();
-        }
-
         protected override void ProcessInputs()
         {
-            if (dashTimer >= player.dashDur / 2)
-                return;
-
-            if (Input.GetButton("Melee"))
+            if (Input.GetButtonDown("Dash") && age <= player.dashDur * 0.5f)
             {
-                //Charge up melee
-                player.bufferedState = new Attack(player);
+                //player.bufferedStates.Enqueue(new Dash(player));
+                player.bufferedState = new Dash(player);
             }
-            
+            if (Input.GetButtonDown("LightAtk"))
+            {
+                player.bufferedState = new LightAtk(player);
+            }
+            if (Input.GetButtonDown("HeavyAtk"))
+            {
+                player.bufferedState = new RollAtk(player);
+            }
         }
-
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            player.rb.velocity = player.dashSpeed * player.lastDir;
+            currentDashSpeed = Mathf.Lerp(player.initialDashSpeed, player.endDashSpeed, 1 - age/player.dashDur);
+            player.rb.velocity = currentDashSpeed * player.lastDir;
+        }
+        public override void OnExit()
+        {
+            base.OnExit();
+            player.rb.velocity = Vector2.zero;
+            player.anim.SetBool(Player.DashKey, false);
+            if (player.moveDir != Vector2.zero)
+                player.lastDir = player.moveDir;
         }
     }
-    public class Attack : BasePlayerState
-    {
-        public Attack(Player daddy) : base(daddy) { }
 
+    public class LightAtk : BasePlayerState
+    {
+        public LightAtk(Player daddy) : base(daddy)
+        {
+            age = player.atkDur;
+            isTimed = true;
+        }
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            if (player.atkSeq < player.atkSeqMax)
+                player.atkSeq++;
+            else if (player.atkSeq >= player.atkSeqMax)
+                player.atkSeq = 1;
+            player.anim.SetInteger(Player.AtkSeqKey, player.atkSeq);
+            player.anim.SetBool(Player.LightAtkKey, true);
+        }
+        protected override void ProcessInputs()
+        {
+            if (Input.GetButtonDown("Dash"))
+            {
+                player.bufferedState = new Dash(player);
+            }
+            if (Input.GetButtonDown("LightAtk"))
+            {
+                player.bufferedState = new LightAtk(player);
+            }
+            if (Input.GetButtonDown("HeavyAtk"))
+            {
+                player.bufferedState = new HeavyAtk(player);
+            }
+        }
+        public override void OnExit()
+        {
+            base.OnExit();
+            player.rb.velocity = Vector2.zero;
+            if (player.bufferedState == null)
+                player.atkSeq = player.atkSeqMax;
+            player.anim.SetBool(Player.LightAtkKey, false);
+            
+            if (player.moveDir != Vector2.zero)
+                player.lastDir = player.moveDir;
+        }
     }
 
+    public class HeavyAtk : BasePlayerState
+    {
+        private float chargeDur = 0f;
+        public HeavyAtk(Player daddy) : base(daddy)
+        {
+            age = player.atkDur;
+        }
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            player.anim.SetInteger(Player.AtkChargeKey, 0);
+            player.anim.SetBool(Player.HeavyAtkKey, true);
+        }
+        protected override void ProcessInputs()
+        {
+            if (Input.GetButton("HeavyAtk"))
+            {
+                chargeDur += Time.deltaTime;
+            }
+            else
+            {
+                if (chargeDur < player.chargeDurMax)
+                {
+                    //do normal charged attack
+                    player.anim.SetInteger(Player.AtkChargeKey, 1);
+                }
+                else
+                {
+                    //do max charged attack
+                    player.anim.SetInteger(Player.AtkChargeKey, 2);
+                }
+                isTimed = true;
+            }
+        }
+        public override void OnExit()
+        {
+            base.OnExit();
+            player.anim.SetBool(Player.HeavyAtkKey, false);
+            player.anim.SetInteger(Player.AtkChargeKey, 0);
+        }
+    }
 
+    public class RollAtk : BasePlayerState
+    {
+        public RollAtk(Player daddy) : base(daddy)
+        {
+            age = player.atkDur;
+            isTimed = true;
+        }
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            player.anim.SetBool(Player.RollAtkKey, true);
+        }
+        protected override void ProcessInputs() { }
+        public override void OnExit()
+        {
+            base.OnExit();
+            player.anim.SetBool(Player.RollAtkKey, false);
+        }
+    }
 }
 
