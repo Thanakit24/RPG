@@ -11,7 +11,7 @@ public class Player : StateMachine
     public Animator anim;
     public Vector2 moveDir;
     public Vector2 lastDir;
-    public float animMulti;
+   
     #region Movement Variables
     public float moveSpeed = 5f;
     public float initialDashSpeed = 10f;
@@ -37,7 +37,6 @@ public class Player : StateMachine
     public static readonly int HeavyAtkKey = Animator.StringToHash("HeavyAtk");
     public static readonly int AtkChargeKey = Animator.StringToHash("AtkCharge");
     public static readonly int RollAtkKey = Animator.StringToHash("RollAtk");
-    public static readonly int AnimMulti = Animator.StringToHash("AnimMulti");
     #endregion
     private void Awake()
     {

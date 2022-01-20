@@ -142,7 +142,7 @@ namespace PlayerStates
         {
             base.OnExit();
             player.rb.velocity = Vector2.zero;
-            if (player.bufferedState == null)
+            if (!(player.bufferedState is LightAtk))
                 player.atkSeq = 0;
 
             player.anim.SetBool(Player.LightAtkKey, false);
