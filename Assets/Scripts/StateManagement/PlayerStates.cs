@@ -113,6 +113,7 @@ namespace PlayerStates
         public LightAtk(Player daddy) : base(daddy)
         {
             age = player.attSeqTimes[player.atkSeq];
+            Debug.Log(player.atkSeq);
             isTimed = true;
         }
         public override void OnEnter()
@@ -120,7 +121,7 @@ namespace PlayerStates
             base.OnEnter();
             player.anim.SetInteger(Player.AtkSeqKey, player.atkSeq);
             player.anim.SetBool(Player.LightAtkKey, true);
-            player.atkSeq = player.atkSeq + 1 % player.attSeqTimes.Length;
+            player.atkSeq = (player.atkSeq + 1) % player.attSeqTimes.Length;
         }
         protected override void ProcessInputs()
         {

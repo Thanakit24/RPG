@@ -458,13 +458,17 @@ MonoBehaviour:
   anim: {fileID: 0}
   moveDir: {x: 0, y: 0}
   lastDir: {x: 0, y: 0}
+  animMulti: 0
   moveSpeed: 5
   initialDashSpeed: 10
   endDashSpeed: 2.5
   dashDur: 0.5
   atkDur: 0.5
   atkSeq: 0
-  atkSeqMax: 3
+  attSeqTimes:
+  - 0.5
+  - 0.5
+  - 0.75
   chargeDurMax: 1
 --- !u!95 &6264142118518827381
 Animator:
