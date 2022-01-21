@@ -12,6 +12,7 @@ public class Player : StateMachine
     public Vector2 moveDir;
     public Vector2 lastDir;
     public Vector3 aimDir;
+    public Transform weapon;
 
     #region Movement Variables
     public float moveSpeed = 5f;

@@ -16,9 +16,6 @@ namespace PlayerStates
             base.Update();
             player.moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
             player.aimDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - player.transform.position;
-            //float angle = Mathf.Atan2(player.aimDir.y, player.aimDir.x) * Mathf.Rad2Deg;
-            //Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
-            //player.transform.rotation = rotation;
         }
         protected void ProcessInputs()
         {
@@ -118,6 +115,11 @@ namespace PlayerStates
             player.anim.SetInteger(Player.AtkSeqKey, player.atkSeq);
             player.anim.SetBool(Player.LightAtkKey, true);
             player.atkSeq = (player.atkSeq + 1) % player.attSeqTimes.Length;
+
+            player.lastDir = player.aimDir;
+            float angle = Mathf.Atan2(player.aimDir.y, player.aimDir.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
+            player.weapon.rotation = rotation;
         }
         public override void Update()
         {
