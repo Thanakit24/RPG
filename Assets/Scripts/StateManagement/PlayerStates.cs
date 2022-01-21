@@ -15,9 +15,12 @@ namespace PlayerStates
         {
             base.Update();
             player.moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-            ProcessInputs();
+            player.aimDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - player.transform.position;
+            //float angle = Mathf.Atan2(player.aimDir.y, player.aimDir.x) * Mathf.Rad2Deg;
+            //Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
+            //player.transform.rotation = rotation;
         }
-        protected virtual void ProcessInputs()
+        protected void ProcessInputs()
         {
             if (Input.GetButtonDown("Dash"))
                 daddy.ChangeState(new Dash(player));
@@ -25,6 +28,15 @@ namespace PlayerStates
                 daddy.ChangeState(new LightAtk(player));
             if (Input.GetButtonDown("HeavyAtk"))
                 daddy.ChangeState(new HeavyAtk(player));
+        }
+        protected void BufferInputs()
+        {
+            if (Input.GetButtonDown("Dash"))
+                player.bufferedState = new Dash(player);
+            if (Input.GetButtonDown("LightAtk"))
+                player.bufferedState = new LightAtk(player);
+            if (Input.GetButtonDown("HeavyAtk"))
+                player.bufferedState = new HeavyAtk(player);
         }
     }
 
@@ -34,27 +46,16 @@ namespace PlayerStates
         public override void Update()
         {
             base.Update();
-            if (player.moveDir != Vector2.zero) //Is moving
-                daddy.ChangeState(new Move(player));
-        }
-        public override void FixedUpdate()
-        {
-            base.FixedUpdate();
-            player.rb.velocity = Vector2.zero;
-        }
-    }
-
-    public class Move : BasePlayerState
-    {
-
-        public Move(Player daddy) : base(daddy) { }
-        public override void Update()
-        {
-            base.Update();
-            if (player.moveDir == Vector2.zero) //Is not moving
-                daddy.ChangeState(new Idle(player));
+            ProcessInputs();
+            if (player.moveDir == Vector2.zero)
+            {
+                player.anim.SetFloat(Player.MoveKey, 0);
+            }
             else
+            {
+                player.anim.SetFloat(Player.MoveKey, 1);
                 player.lastDir = player.moveDir;
+            }
         }
         public override void FixedUpdate()
         {
@@ -76,21 +77,16 @@ namespace PlayerStates
             base.OnEnter();
             player.anim.SetBool(Player.DashKey, true);
         }
-        protected override void ProcessInputs()
+        public override void Update()
         {
+            base.Update();
+            //player.bufferedStates.Enqueue(new Dash(player));
             if (Input.GetButtonDown("Dash") && age <= player.dashDur * 0.5f)
-            {
-                //player.bufferedStates.Enqueue(new Dash(player));
                 player.bufferedState = new Dash(player);
-            }
             if (Input.GetButtonDown("LightAtk"))
-            {
                 player.bufferedState = new LightAtk(player);
-            }
             if (Input.GetButtonDown("HeavyAtk"))
-            {
                 player.bufferedState = new RollAtk(player);
-            }
         }
         public override void FixedUpdate()
         {
@@ -113,7 +109,6 @@ namespace PlayerStates
         public LightAtk(Player daddy) : base(daddy)
         {
             age = player.attSeqTimes[player.atkSeq];
-            Debug.Log(player.atkSeq);
             isTimed = true;
         }
         public override void OnEnter()
@@ -123,20 +118,10 @@ namespace PlayerStates
             player.anim.SetBool(Player.LightAtkKey, true);
             player.atkSeq = (player.atkSeq + 1) % player.attSeqTimes.Length;
         }
-        protected override void ProcessInputs()
+        public override void Update()
         {
-            if (Input.GetButtonDown("Dash"))
-            {
-                player.bufferedState = new Dash(player);
-            }
-            if (Input.GetButtonDown("LightAtk"))
-            {
-                player.bufferedState = new LightAtk(player);
-            }
-            if (Input.GetButtonDown("HeavyAtk"))
-            {
-                player.bufferedState = new HeavyAtk(player);
-            }
+            base.Update();
+            BufferInputs();
         }
         public override void OnExit()
         {
@@ -164,8 +149,9 @@ namespace PlayerStates
             player.anim.SetInteger(Player.AtkChargeKey, 0);
             player.anim.SetBool(Player.HeavyAtkKey, true);
         }
-        protected override void ProcessInputs()
+        public override void Update()
         {
+            base.Update();
             if (Input.GetButton("HeavyAtk"))
             {
                 chargeDur += Time.deltaTime;
@@ -183,6 +169,7 @@ namespace PlayerStates
                     player.anim.SetInteger(Player.AtkChargeKey, 2);
                 }
                 isTimed = true;
+                BufferInputs();
             }
         }
         public override void OnExit()
@@ -203,13 +190,17 @@ namespace PlayerStates
         public override void OnEnter()
         {
             base.OnEnter();
-            player.anim.SetBool(Player.RollAtkKey, true);
+            player.anim.SetBool(Player.DashAtkKey, true);
         }
-        protected override void ProcessInputs() { }
+        public override void Update()
+        {
+            base.Update();
+            BufferInputs();
+        }
         public override void OnExit()
         {
             base.OnExit();
-            player.anim.SetBool(Player.RollAtkKey, false);
+            player.anim.SetBool(Player.DashAtkKey, false);
         }
     }
 }
