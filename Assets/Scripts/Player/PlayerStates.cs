@@ -6,21 +6,24 @@ namespace PlayerStates
 {
     public class BasePlayerState : BaseState
     {
-        protected Player player;
+        public Player player;
+
         public BasePlayerState(Player daddy) : base(daddy)
         {
             player = daddy;
         }
+
         public override void Update()
         {
             base.Update();
             ProcessInputs();
             player.moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            player.aimDir = (mousePos - (Vector2)player.transform.position).normalized;
+            player.aimDir = (mousePos - (Vector2) player.transform.position).normalized;
             player.anim.SetFloat(Player.HorizontalKey, player.lastDir.x);
             player.anim.SetFloat(Player.VerticalKey, player.lastDir.y);
         }
+
         protected virtual void ProcessInputs()
         {
             if (Input.GetButtonDown("Dash"))
@@ -30,6 +33,7 @@ namespace PlayerStates
             if (Input.GetButtonDown("HeavyAtk"))
                 daddy.ChangeState(new HeavyAtk(player));
         }
+
         protected void BufferInputs()
         {
             if (Input.GetButtonDown("Dash"))
@@ -43,7 +47,10 @@ namespace PlayerStates
 
     public class Idle : BasePlayerState
     {
-        public Idle(Player daddy) : base(daddy) { }
+        public Idle(Player daddy) : base(daddy)
+        {
+        }
+
         public override void Update()
         {
             if (player.moveDir == Vector2.zero)
@@ -55,8 +62,10 @@ namespace PlayerStates
                 player.anim.SetFloat(Player.MoveKey, 1);
                 player.lastDir = player.moveDir;
             }
+
             base.Update();
         }
+
         public override void FixedUpdate()
         {
             base.FixedUpdate();
@@ -67,16 +76,19 @@ namespace PlayerStates
     public class Dash : BasePlayerState
     {
         private float currentDashSpeed;
+
         public Dash(Player daddy) : base(daddy)
         {
             age = player.dashDur;
             isTimed = true;
         }
+
         public override void OnEnter()
         {
             base.OnEnter();
             player.anim.SetBool(Player.DashKey, true);
         }
+
         protected override void ProcessInputs()
         {
             //player.bufferedStates.Enqueue(new Dash(player));
@@ -87,12 +99,14 @@ namespace PlayerStates
             if (Input.GetButtonDown("HeavyAtk"))
                 player.bufferedState = new RollAtk(player);
         }
+
         public override void FixedUpdate()
         {
             base.FixedUpdate();
             currentDashSpeed = Mathf.Lerp(player.initialDashSpeed, player.endDashSpeed, 1 - age / player.dashDur);
             player.rb.velocity = currentDashSpeed * player.lastDir;
         }
+
         public override void OnExit()
         {
             base.OnExit();
@@ -110,6 +124,7 @@ namespace PlayerStates
             age = player.attSeqTimes[player.atkSeq];
             isTimed = true;
         }
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -124,10 +139,12 @@ namespace PlayerStates
             player.weapon.rotation = rotation;
             Debug.Log("enter lightatk state" + player.lastDir.ToString());
         }
+
         protected override void ProcessInputs()
         {
             BufferInputs();
         }
+
         public override void OnExit()
         {
             base.OnExit();
@@ -144,16 +161,19 @@ namespace PlayerStates
     public class HeavyAtk : BasePlayerState
     {
         private float chargeDur = 0f;
+
         public HeavyAtk(Player daddy) : base(daddy)
         {
             age = player.atkDur;
         }
+
         public override void OnEnter()
         {
             base.OnEnter();
             player.anim.SetInteger(Player.AtkChargeKey, 0);
             player.anim.SetBool(Player.HeavyAtkKey, true);
         }
+
         public override void Update()
         {
             base.Update();
@@ -173,11 +193,16 @@ namespace PlayerStates
                     //do max charged attack
                     player.anim.SetInteger(Player.AtkChargeKey, 2);
                 }
+
                 isTimed = true;
                 BufferInputs();
             }
         }
-        protected override void ProcessInputs() { }
+
+        protected override void ProcessInputs()
+        {
+        }
+
         public override void OnExit()
         {
             base.OnExit();
@@ -193,21 +218,22 @@ namespace PlayerStates
             age = player.atkDur;
             isTimed = true;
         }
+
         public override void OnEnter()
         {
             base.OnEnter();
             player.anim.SetBool(Player.DashAtkKey, true);
         }
+
         protected override void ProcessInputs()
         {
             BufferInputs();
         }
+
         public override void OnExit()
         {
             base.OnExit();
             player.anim.SetBool(Player.DashAtkKey, false);
         }
     }
-    
 }
-

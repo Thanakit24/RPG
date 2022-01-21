@@ -5,9 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Sample Item", menuName = "InventoryItem/Standard")]
 public class InventoryItem : ScriptableObject
 {
-    //[ScriptableObjectId]
+    #if UNITY_EDITOR
+    [ScriptableObjectId]
+    #endif
     public string Id;
-
+    
     //Create a scriptable object and assign its values
     public string itemName;
     public int itemCost = 1; 

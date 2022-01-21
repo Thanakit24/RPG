@@ -6,12 +6,6 @@ public class StateMachine : MonoBehaviour
 {
     public BaseState currentState;
 
-    //Make actor base class in future for actor stats
-    public float flashDur = 0.2f;
-    public Color flashColor;
-    public Color regularColor;
-    public int currentHealth;
-    public int maxHealth;
 
     protected virtual void Start()
     {

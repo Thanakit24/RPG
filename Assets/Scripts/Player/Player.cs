@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using PlayerStates;
 
-public class Player : StateMachine
+public class Player : ActorBase
 {
     //public Queue<BaseState> bufferedStates = new Queue<BaseState>();
     public BaseState bufferedState;
@@ -15,7 +15,11 @@ public class Player : StateMachine
     public Vector2 aimDir;
     public Transform weapon;
 
-    public float iframeDur = 1;
+    public StateMachine sm;
+
+    public float maxIframeDur = 0.5f;
+    public float iframeDur = 0f;
+    // public bool isIframe = false;
 
     #region Movement Variables
     public float moveSpeed = 5f;
@@ -80,10 +84,28 @@ public class Player : StateMachine
     protected override void Update()
     {
         base.Update();
+
+        iframeDur -= Time.deltaTime;
+        if (iframeDur > 0)
+        {
+            sr.color = new Color(Random.value, Random.value, Random.value);
+        }
+        else
+        {
+            sr.color = Color.white;
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
+        print("hey man");
+        if (iframeDur > 0)
+        {
+            return;
+        }
+        iframeDur = maxIframeDur;
+        print("OUCH FUCK");
 
         if (currentState is Idle)
         {
