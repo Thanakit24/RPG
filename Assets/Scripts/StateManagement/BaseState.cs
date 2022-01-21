@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//[System.Serializable]
+// [System.Serializable]
 public class BaseState
 {
     [HideInInspector] public StateMachine daddy;
-    public string stateName = "Base State";
-    public bool isTimed = false;
+    [SerializeField] public string stateName = "Base State";
+    [HideInInspector]public bool isTimed = false;
     public float age = 0f;
 
     public BaseState (StateMachine daddy)

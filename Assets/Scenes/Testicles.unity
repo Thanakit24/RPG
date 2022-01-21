@@ -458,7 +458,6 @@ MonoBehaviour:
   anim: {fileID: 0}
   moveDir: {x: 0, y: 0}
   lastDir: {x: 0, y: 0}
-  animMulti: 0
   moveSpeed: 5
   initialDashSpeed: 10
   endDashSpeed: 2.5

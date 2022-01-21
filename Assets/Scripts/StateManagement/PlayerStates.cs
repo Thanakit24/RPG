@@ -119,6 +119,7 @@ namespace PlayerStates
         public override void OnEnter()
         {
             base.OnEnter();
+            player.rb.velocity = Vector2.zero;
             player.anim.SetInteger(Player.AtkSeqKey, player.atkSeq);
             player.anim.SetBool(Player.LightAtkKey, true);
             player.atkSeq = (player.atkSeq + 1) % player.attSeqTimes.Length;
@@ -212,5 +213,6 @@ namespace PlayerStates
             player.anim.SetBool(Player.RollAtkKey, false);
         }
     }
+    
 }
 
