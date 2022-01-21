@@ -14,10 +14,14 @@ namespace PlayerStates
         public override void Update()
         {
             base.Update();
+            ProcessInputs();
             player.moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-            player.aimDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - player.transform.position;
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            player.aimDir = (mousePos - (Vector2)player.transform.position).normalized;
+            player.anim.SetFloat(Player.HorizontalKey, player.lastDir.x);
+            player.anim.SetFloat(Player.VerticalKey, player.lastDir.y);
         }
-        protected void ProcessInputs()
+        protected virtual void ProcessInputs()
         {
             if (Input.GetButtonDown("Dash"))
                 daddy.ChangeState(new Dash(player));
@@ -42,8 +46,6 @@ namespace PlayerStates
         public Idle(Player daddy) : base(daddy) { }
         public override void Update()
         {
-            base.Update();
-            ProcessInputs();
             if (player.moveDir == Vector2.zero)
             {
                 player.anim.SetFloat(Player.MoveKey, 0);
@@ -53,6 +55,7 @@ namespace PlayerStates
                 player.anim.SetFloat(Player.MoveKey, 1);
                 player.lastDir = player.moveDir;
             }
+            base.Update();
         }
         public override void FixedUpdate()
         {
@@ -74,9 +77,8 @@ namespace PlayerStates
             base.OnEnter();
             player.anim.SetBool(Player.DashKey, true);
         }
-        public override void Update()
+        protected override void ProcessInputs()
         {
-            base.Update();
             //player.bufferedStates.Enqueue(new Dash(player));
             if (Input.GetButtonDown("Dash") && age <= player.dashDur * 0.5f)
                 player.bufferedState = new Dash(player);
@@ -96,8 +98,8 @@ namespace PlayerStates
             base.OnExit();
             player.rb.velocity = Vector2.zero;
             player.anim.SetBool(Player.DashKey, false);
-            if (player.moveDir != Vector2.zero)
-                player.lastDir = player.moveDir;
+            //if (player.moveDir != Vector2.zero)
+            //    player.lastDir = player.moveDir;
         }
     }
 
@@ -120,10 +122,10 @@ namespace PlayerStates
             float angle = Mathf.Atan2(player.aimDir.y, player.aimDir.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
             player.weapon.rotation = rotation;
+            Debug.Log("enter lightatk state" + player.lastDir.ToString());
         }
-        public override void Update()
+        protected override void ProcessInputs()
         {
-            base.Update();
             BufferInputs();
         }
         public override void OnExit()
@@ -134,8 +136,8 @@ namespace PlayerStates
                 player.atkSeq = 0;
 
             player.anim.SetBool(Player.LightAtkKey, false);
-            if (player.moveDir != Vector2.zero)
-                player.lastDir = player.moveDir;
+            //if (player.moveDir != Vector2.zero)
+            //    player.lastDir = player.moveDir;
         }
     }
 
@@ -175,6 +177,7 @@ namespace PlayerStates
                 BufferInputs();
             }
         }
+        protected override void ProcessInputs() { }
         public override void OnExit()
         {
             base.OnExit();
@@ -195,9 +198,8 @@ namespace PlayerStates
             base.OnEnter();
             player.anim.SetBool(Player.DashAtkKey, true);
         }
-        public override void Update()
+        protected override void ProcessInputs()
         {
-            base.Update();
             BufferInputs();
         }
         public override void OnExit()

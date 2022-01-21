@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using PlayerStates;
 
 public class Player : StateMachine
@@ -11,7 +12,7 @@ public class Player : StateMachine
     public Animator anim;
     public Vector2 moveDir;
     public Vector2 lastDir;
-    public Vector3 aimDir;
+    public Vector2 aimDir;
     public Transform weapon;
 
     #region Movement Variables
@@ -22,11 +23,31 @@ public class Player : StateMachine
     #endregion
 
     #region Melee Attack Variables
+    [Header("Melee Attack")]
     public float atkDur = 0.2f;
     public int atkSeq = 0;
     public float[] attSeqTimes = { 1f, 1f, 2f };
 
     public float chargeDurMax = 1f;
+
+    public int attackDamage = 1;
+    public float knockBack;
+    public LayerMask enemyMask;
+    #endregion
+
+    #region Health
+    [Header("Health")]
+    public int currentHealth;
+    public int maxHealth;
+    public Image[] hearts;
+    public Sprite filledHeart;
+    public Sprite emptyHeart;
+    public float iframeDur = 1;
+    public SpriteRenderer sr;
+    public SpriteRenderer swordSr;
+    public float flashFreq = 0.2f;
+    public Color flashColor;
+    public Color regularColor;
     #endregion
 
     #region Animation Keys
@@ -55,8 +76,6 @@ public class Player : StateMachine
     protected override void Update()
     {
         base.Update();
-        anim.SetFloat(HorizontalKey, lastDir.x);
-        anim.SetFloat(VerticalKey, lastDir.y);
     }
 
     private void OnTriggerEnter(Collider other)
