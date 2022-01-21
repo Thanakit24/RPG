@@ -15,6 +15,8 @@ public class Player : StateMachine
     public Vector2 aimDir;
     public Transform weapon;
 
+    public float iframeDur = 1;
+
     #region Movement Variables
     public float moveSpeed = 5f;
     public float initialDashSpeed = 10f;
@@ -35,19 +37,21 @@ public class Player : StateMachine
     public LayerMask enemyMask;
     #endregion
 
-    #region Health
-    [Header("Health")]
-    public int currentHealth;
-    public int maxHealth;
+    #region UI
+    [Header("UI")]
     public Image[] hearts;
     public Sprite filledHeart;
     public Sprite emptyHeart;
-    public float iframeDur = 1;
     public SpriteRenderer sr;
     public SpriteRenderer swordSr;
-    public float flashFreq = 0.2f;
-    public Color flashColor;
-    public Color regularColor;
+    #endregion
+
+    #region Inventory
+    [Header("Pickups")]
+    public PlayerInventory invManager;
+    public GameObject invGO;
+    public float interactRange;
+    public LayerMask interactLayerMask;
     #endregion
 
     #region Animation Keys
