@@ -86,7 +86,7 @@ namespace PlayerStates
         public override void OnEnter()
         {
             base.OnEnter();
-            player.anim.SetBool(Player.DashKey, true);
+            player.anim.PlayInFixedTime(Player.DashAnimKey, 0, 0f);
         }
 
         protected override void ProcessInputs()
@@ -111,7 +111,7 @@ namespace PlayerStates
         {
             base.OnExit();
             player.rb.velocity = Vector2.zero;
-            player.anim.SetBool(Player.DashKey, false);
+            // player.anim.SetBool(Player.DashKey, false);
             //if (player.moveDir != Vector2.zero)
             //    player.lastDir = player.moveDir;
         }

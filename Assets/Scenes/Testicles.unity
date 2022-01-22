@@ -429,6 +429,11 @@ PrefabInstance:
       objectReference: {fileID: 1298492639}
     - target: {fileID: 6646804632230644527, guid: ad47f7e75dfc448b598b3e9152b82125,
         type: 3}
+      propertyPath: dashDur
+      value: 0.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 6646804632230644527, guid: ad47f7e75dfc448b598b3e9152b82125,
+        type: 3}
       propertyPath: gamerStatus
       value: 
       objectReference: {fileID: 11400000, guid: de598ff662cdffe41adf4000a05dfbfb,

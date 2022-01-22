@@ -21,11 +21,6 @@ public class ActorBase : StateMachine
         AddStatus(gamerStatus);
     }
 
-    void Test()
-    {
-        AddStatus(gamerStatus);
-    }
-
     protected override void Update()
     {
         base.Update();

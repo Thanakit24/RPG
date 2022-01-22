@@ -62,7 +62,7 @@ public class Player : ActorBase
     public static readonly int HorizontalKey = Animator.StringToHash("Horizontal");
     public static readonly int VerticalKey = Animator.StringToHash("Vertical");
     public static readonly int MoveKey = Animator.StringToHash("Move");
-    public static readonly int DashKey = Animator.StringToHash("Dash");
+    public static readonly int DashAnimKey = Animator.StringToHash("Roll");
     public static readonly int LightAtkKey = Animator.StringToHash("LightAtk");
     public static readonly int AtkSeqKey = Animator.StringToHash("AtkSeq");
     public static readonly int HeavyAtkKey = Animator.StringToHash("HeavyAtk");
