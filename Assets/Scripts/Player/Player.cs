@@ -21,8 +21,7 @@ public class Player : ActorBase
     public float iframeDur = 0f;
     // public bool isIframe = false;
 
-    #region Movement Variables
-    public float moveSpeed = 5f;
+    #region Dash Variables
     public float initialDashSpeed = 10f;
     public float endDashSpeed = 2.5f;
     public float dashDur = 0.75f;

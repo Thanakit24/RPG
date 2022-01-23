@@ -13,7 +13,7 @@ public class BaseState
     public BaseState (StateMachine daddy)
     {
         this.daddy = daddy;
-        this.stateName = this.GetType().Name;
+        stateName = GetType().Name;
     }
 
     public virtual void OnEnter()

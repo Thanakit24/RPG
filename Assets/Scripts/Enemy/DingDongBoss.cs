@@ -19,14 +19,14 @@ public class DingDongBoss : Enemy
     {
         base.Update();
         //TODO put in enemy
-        if (currentState == EnemyStates.AttackPrepare)
+        if (currentState == EnemyState.AttackPrepare)
         {
             //decremeent
             attackCooldown -= Time.deltaTime;
             if (attackCooldown <= 0)
             {
                 attackCooldown = attackCooldownTimer;
-                ChangeStates(EnemyStates.Attack);
+                ChangeStates(EnemyState.Attack);
 
                 //Decide Attack
                 if (attackState == BoomerAttacks.SingleThrow)
@@ -62,7 +62,7 @@ public class DingDongBoss : Enemy
 
     protected override void Move()
     {
-        if (!(currentState == EnemyStates.Move  || currentState == EnemyStates.AttackPrepare)) return;
+        if (!(currentState == EnemyState.Move  || currentState == EnemyState.AttackPrepare)) return;
         Vector2 facingDirection = player.transform.position - transform.position;
         rb.MovePosition(rb.position + facingDirection.normalized * moveSpeed * Time.deltaTime); //pathfinding trash
     }

@@ -18,7 +18,7 @@ public class RangeSpirit2 : Enemy
     protected override void Update()
     {
         base.Update();
-        if (currentState == EnemyStates.AttackPrepare)
+        if (currentState == EnemyState.AttackPrepare)
         {
             PreparePuddle();
         }
@@ -32,14 +32,14 @@ public class RangeSpirit2 : Enemy
         else
         {
             animator.SetTrigger("Attack");
-            currentState = EnemyStates.Attack;
+            currentState = EnemyState.Attack;
         }
     }
     public void InstantiatePuddle() //call through animation events 
     {
         Instantiate(puddleProjectile, player.position, Quaternion.identity);
         instantiateCooldown = instantiateCooldownTimer;
-        currentState = EnemyStates.IDLE; 
+        currentState = EnemyState.IDLE; 
     }
 
 }

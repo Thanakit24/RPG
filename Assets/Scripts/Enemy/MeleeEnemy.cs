@@ -19,7 +19,7 @@ public class MeleeEnemy : Enemy
     protected override void Update()
     {
         base.Update(); //isnt it running the update from enemy first then this update
-        if (currentState == EnemyStates.AttackPrepare)
+        if (currentState == EnemyState.AttackPrepare)
         {
             Attack();
         }
@@ -30,7 +30,7 @@ public class MeleeEnemy : Enemy
         if (attackCooldown <= 0)
         {
             attackCooldown = attackCooldownTimer;
-            currentState = EnemyStates.Attack;
+            currentState = EnemyState.Attack;
             animator.SetTrigger("Attack");
         }
     }

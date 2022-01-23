@@ -18,7 +18,7 @@ public class RangeSpirit : Enemy
     protected override void Update()
     {
         base.Update();
-        if (currentState == EnemyStates.AttackPrepare )
+        if (currentState == EnemyState.AttackPrepare )
         {
             ShootProjectile();
         }
@@ -30,7 +30,7 @@ public class RangeSpirit : Enemy
         if (attackCooldown <= 0)
         {
             animator.SetTrigger("Attack");
-            currentState = EnemyStates.Attack;
+            currentState = EnemyState.Attack;
         }
         else
         {
@@ -43,7 +43,7 @@ public class RangeSpirit : Enemy
         //Debug.Log("Instantiate & Called");
         //Debug.Log("Shoot projectile");
         attackCooldown = attackCooldownTimer;
-        currentState = EnemyStates.IDLE;
+        currentState = EnemyState.IDLE;
     }
    
 }

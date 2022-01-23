@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public enum EnemyStates
+public enum EnemyState
 {
     IDLE,
     Move,
@@ -14,7 +14,7 @@ public enum EnemyStates
 }
 public class Enemy : MonoBehaviour
 {
-    public EnemyStates currentState;
+    public EnemyState currentState;
     protected Rigidbody2D rb; //protected is private but for parents and children is accessible
     public int health = 5;
     public float moveSpeed = 2f;
@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour
         target = player;
         rb = GetComponent<Rigidbody2D>();
         enemySprite = GetComponent<SpriteRenderer>();
-        currentState = EnemyStates.IDLE;
+        currentState = EnemyState.IDLE;
         animator = GetComponent<Animator>();
         idleHash = Animator.StringToHash(idleAnim);
         if (isPathfinding)
@@ -109,12 +109,12 @@ public class Enemy : MonoBehaviour
     protected virtual void Update()
     {
         enemySprite.sortingOrder = Mathf.FloorToInt(transform.position.y * -100);
-        if (currentState == EnemyStates.Dead)
+        if (currentState == EnemyState.Dead)
             return;
         //MAX TIME STUCK
 
         //DONT DO THIS IN A NORMAL UPDATE< INFACT DONT DO THIS 
-        if (currentState == EnemyStates.Attack || currentState == EnemyStates.Knocked)
+        if (currentState == EnemyState.Attack || currentState == EnemyState.Knocked)
         {
             if (animStuck > 0)
             {
@@ -124,7 +124,7 @@ public class Enemy : MonoBehaviour
             else
             {
                 Debug.Log("CRINGE ALERT ANIM WAS STUCK");
-                currentState = EnemyStates.IDLE;
+                currentState = EnemyState.IDLE;
                 animStuck = maxAnimStuck;
             }
         }
@@ -141,14 +141,14 @@ public class Enemy : MonoBehaviour
         {
             //attack radius
             waitAtPatrol = false;
-            ChangeStates(EnemyStates.AttackPrepare);
+            ChangeStates(EnemyState.AttackPrepare);
         }
         else
         {
             //chase radius
             target = player;
             waitAtPatrol = false;
-            ChangeStates(EnemyStates.Move);
+            ChangeStates(EnemyState.Move);
         }
 
         if (target.transform.position.x < transform.position.x && facingRight)
@@ -166,7 +166,7 @@ public class Enemy : MonoBehaviour
 
     private void Patrol()
     {
-        ChangeStates(EnemyStates.Move);
+        ChangeStates(EnemyState.Move);
         target = patrolPoints[patrolIndex];
         if (!waitAtPatrol && Vector3.Distance(transform.position, patrolPoints[patrolIndex].position) < patroltWaypointDistance)
         {
@@ -191,7 +191,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Move()
     {
-        if (currentState != EnemyStates.Move) return;
+        if (currentState != EnemyState.Move) return;
         if (path == null || waitAtPatrol) return;
         if (currentWaypoint >= path.vectorPath.Count)
         {
@@ -247,7 +247,7 @@ public class Enemy : MonoBehaviour
     }
     public void KnockBack(Vector2 force)
     {
-        currentState = EnemyStates.Knocked;
+        currentState = EnemyState.Knocked;
         StartCoroutine(Knocking(force));
     }
 
@@ -257,7 +257,7 @@ public class Enemy : MonoBehaviour
         //animator.Play(idleHash);
         yield return new WaitForSeconds(knockbackDuration);
         rb.velocity = Vector2.zero;
-        currentState = EnemyStates.IDLE;
+        currentState = EnemyState.IDLE;
     }
     public void EnemyDamagedEffect()
     {
@@ -278,7 +278,7 @@ public class Enemy : MonoBehaviour
     private void Dead(PlayerController player)
     {
         rb.velocity = Vector2.zero;
-        ChangeStates(EnemyStates.Dead);
+        ChangeStates(EnemyState.Dead);
         player.invManager.GainCurrecy(enemyCurrency);
         animator.SetTrigger("Dead");
         deathEvent?.Invoke(this);
@@ -291,11 +291,11 @@ public class Enemy : MonoBehaviour
 
     public void DefaultState()
     {
-        if (currentState == EnemyStates.Knocked) return;
+        if (currentState == EnemyState.Knocked) return;
         ChangeStates();
     }
 
-    public virtual void ChangeStates(EnemyStates newState = EnemyStates.IDLE)
+    public virtual void ChangeStates(EnemyState newState = EnemyState.IDLE)
     {
         currentState = newState;
     }

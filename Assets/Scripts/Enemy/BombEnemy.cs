@@ -14,7 +14,7 @@ public class BombEnemy : Enemy
     protected override void Update()
     {
         base.Update();
-        if (currentState == EnemyStates.AttackPrepare)
+        if (currentState == EnemyState.AttackPrepare)
         {
             Explode();
         }
@@ -22,7 +22,7 @@ public class BombEnemy : Enemy
     // Update is called once per frame
     public void Explode()
     {
-        currentState = EnemyStates.Attack;
+        currentState = EnemyState.Attack;
         animator.SetTrigger("Attack");
     }
     public void OpenExplodeCollider()

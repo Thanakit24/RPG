@@ -22,14 +22,14 @@ public class BoomerBoss : Enemy
         base.Update();
        
         //TODO put in enemy
-        if (currentState == EnemyStates.AttackPrepare)
+        if (currentState == EnemyState.AttackPrepare)
         {
             //decremeent
             attackCooldown -= Time.deltaTime;
             if (attackCooldown <= 0)
             {
                 attackCooldown = attackCooldownTimer;
-                ChangeStates(EnemyStates.Attack);
+                ChangeStates(EnemyState.Attack);
 
                 //Decide Attack
                 if (attackState == BoomerAttacks.SingleThrow)
@@ -60,12 +60,12 @@ public class BoomerBoss : Enemy
      
     }
 
-    public override void ChangeStates(EnemyStates newState = EnemyStates.IDLE)
+    public override void ChangeStates(EnemyState newState = EnemyState.IDLE)
     {
         base.ChangeStates(newState);
         switch (newState)
         {
-            case EnemyStates.AttackPrepare:
+            case EnemyState.AttackPrepare:
                 break;
         }
     }
@@ -73,7 +73,7 @@ public class BoomerBoss : Enemy
 
     protected override void Move()
     {
-        if (!(currentState == EnemyStates.Move || currentState == EnemyStates.AttackPrepare)) return;
+        if (!(currentState == EnemyState.Move || currentState == EnemyState.AttackPrepare)) return;
         Vector2 facingDirection = player.transform.position - transform.position;
         rb.MovePosition(rb.position + facingDirection.normalized * moveSpeed * Time.deltaTime); //pathfinding trash
     }

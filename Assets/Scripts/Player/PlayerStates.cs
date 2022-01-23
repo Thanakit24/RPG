@@ -98,12 +98,12 @@ namespace PlayerStates
                 player.bufferedState = new LightAtk(player);
             if (Input.GetButtonDown("HeavyAtk"))
                 player.bufferedState = new RollAtk(player);
+            currentDashSpeed = Mathf.Lerp(player.initialDashSpeed, player.endDashSpeed, 1 - age / player.dashDur);
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            currentDashSpeed = Mathf.Lerp(player.initialDashSpeed, player.endDashSpeed, 1 - age / player.dashDur);
             player.rb.velocity = currentDashSpeed * player.lastDir;
         }
 

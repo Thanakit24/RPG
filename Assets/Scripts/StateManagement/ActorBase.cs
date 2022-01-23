@@ -11,6 +11,7 @@ public class ActorBase : StateMachine
     public Color regularColor;
     public int currentHealth;
     public int maxHealth;
+    public float moveSpeed = 5f;
 
     public Status gamerStatus;
     public List<StatusState> statusStates = new List<StatusState>();
@@ -41,7 +42,7 @@ public class ActorBase : StateMachine
 
     public void AddStatus(Status status)
     {
-        status.OnEnter(this); 
+        status.OnEnter(this);
         statusStates.Add(new StatusState(status));
     }
 }
