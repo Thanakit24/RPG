@@ -86,6 +86,7 @@ namespace PlayerStates
         public override void OnEnter()
         {
             base.OnEnter();
+            player.lastDir = player.moveDir;
             player.anim.PlayInFixedTime(Player.DashAnimKey, 0, 0f);
         }
 

@@ -19,6 +19,7 @@ public class ActorBase : StateMachine
     protected override void Start()
     {
         base.Start();
+        currentHealth = maxHealth;
         //AddStatus(gamerStatus);
     }
 

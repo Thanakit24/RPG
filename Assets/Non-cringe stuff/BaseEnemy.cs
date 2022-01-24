@@ -6,12 +6,11 @@ using EnemyStates;
 public class BaseEnemy : ActorBase
 {
     public BaseState bufferedState;
-    public Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
     public Vector2 moveDir;
     public Vector2 aimDir;
 
-    private UnitManager mommy;
-    public Vector2 target;
+    [HideInInspector] public Vector2 target;
 
     #region Attack Variables
     [Header("Attack")]
@@ -32,12 +31,14 @@ public class BaseEnemy : ActorBase
     protected override void Start()
     {
         base.Start();
+        UnitManager.Instance.Enemies.Add(this);
         currentState = new ChasePlayer(this);
     }
 
-    public void Init(UnitManager manager)
+    public void Despawn()
     {
-        mommy = manager;
+        UnitManager.Instance.Enemies.Remove(this);
+        Destroy(gameObject);
     }
 
     protected override void Update()
@@ -60,7 +61,7 @@ public class BaseEnemy : ActorBase
     private void FindTarget()
     {
         float minDist = float.MaxValue;
-        foreach (Player unit in mommy.Players)
+        foreach (Player unit in UnitManager.Instance.Players)
         {
             if (unit != null && Vector2.SqrMagnitude(transform.position - unit.transform.position) < minDist)
             {

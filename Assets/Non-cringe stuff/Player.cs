@@ -8,15 +8,14 @@ public class Player : ActorBase
 {
     //public Queue<BaseState> bufferedStates = new Queue<BaseState>();
     public BaseState bufferedState;
-    public Rigidbody2D rb;
-    public Animator anim;
+    [HideInInspector] public Rigidbody2D rb;
+    [HideInInspector] public Animator anim;
     public Vector2 moveDir;
     public Vector2 lastDir;
     public Vector2 aimDir;
     public Transform weapon;
 
     public StateMachine sm;
-    private UnitManager mommy;
 
     public float maxIframeDur = 0.5f;
     public float iframeDur = 0f;
@@ -79,12 +78,14 @@ public class Player : ActorBase
     protected override void Start()
     {
         base.Start();
+        UnitManager.Instance.Players.Add(this);
         currentState = new Idle(this);
     }
 
-    public void Init(UnitManager manager)
+    public void Despawn()
     {
-        mommy = manager;
+        UnitManager.Instance.Players.Remove(this);
+        Destroy(gameObject);
     }
 
     protected override void Update()
