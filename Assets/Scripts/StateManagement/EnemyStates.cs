@@ -24,7 +24,7 @@ namespace EnemyStates
         }
         protected virtual void ProcessOutput()
         {
-            enemy.targetDir = (enemy.playerPos - enemy.currentPos).normalized;
+            enemy.aimDir = (enemy.target - (Vector2)enemy.transform.position).normalized;
             if (enemy.cooldownTimer >= 0)
                 enemy.cooldownTimer -= Time.deltaTime;
         }
@@ -39,13 +39,13 @@ namespace EnemyStates
         public ChasePlayer(BaseEnemy daddy) : base(daddy) { }
         protected override void ProcessMovement()
         {
-            enemy.moveDir = (enemy.playerPos - enemy.currentPos).normalized;
+            enemy.moveDir = (enemy.target - (Vector2)enemy.transform.position).normalized;
             base.ProcessMovement();
         }
         protected override void ProcessOutput()
         {
             base.ProcessOutput();
-            if (enemy.cooldownTimer <= 0 && Vector2.Distance(enemy.currentPos, enemy.playerPos) <= enemy.atkRange)
+            if (enemy.cooldownTimer <= 0 && Vector2.SqrMagnitude(enemy.target - (Vector2)enemy.transform.position) <= enemy.atkRange)
                 enemy.ChangeState(new AtkWindup(enemy));
         }
         public override void OnExit()
@@ -74,9 +74,10 @@ namespace EnemyStates
         }
         protected override void ProcessMovement()
         {
-            enemy.rb.velocity = -currentMoveSpeed * enemy.targetDir;
+            enemy.rb.velocity = -currentMoveSpeed * enemy.aimDir;
         }
     }
+
     public class MeleeAtk : BaseEnemyState
     {
         private float currentMoveSpeed;
@@ -91,7 +92,7 @@ namespace EnemyStates
         }
         protected override void ProcessMovement()
         {
-            enemy.rb.velocity = currentMoveSpeed * enemy.targetDir;
+            enemy.rb.velocity = currentMoveSpeed * enemy.aimDir;
         }
         public override void OnExit()
         {

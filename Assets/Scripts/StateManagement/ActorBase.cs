@@ -19,7 +19,7 @@ public class ActorBase : StateMachine
     protected override void Start()
     {
         base.Start();
-        AddStatus(gamerStatus);
+        //AddStatus(gamerStatus);
     }
 
     protected override void Update()

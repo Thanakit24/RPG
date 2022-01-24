@@ -16,6 +16,7 @@ public class Player : ActorBase
     public Transform weapon;
 
     public StateMachine sm;
+    private UnitManager mommy;
 
     public float maxIframeDur = 0.5f;
     public float iframeDur = 0f;
@@ -72,12 +73,18 @@ public class Player : ActorBase
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     protected override void Start()
     {
         base.Start();
         currentState = new Idle(this);
+    }
+
+    public void Init(UnitManager manager)
+    {
+        mommy = manager;
     }
 
     protected override void Update()

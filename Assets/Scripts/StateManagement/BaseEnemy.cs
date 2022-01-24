@@ -7,11 +7,11 @@ public class BaseEnemy : ActorBase
 {
     public BaseState bufferedState;
     public Rigidbody2D rb;
-    public Transform player;
-    public Vector2 currentPos;
-    public Vector2 playerPos;
     public Vector2 moveDir;
-    public Vector2 targetDir;
+    public Vector2 aimDir;
+
+    private UnitManager mommy;
+    public Vector2 target;
 
     #region Attack Variables
     [Header("Attack")]
@@ -28,17 +28,24 @@ public class BaseEnemy : ActorBase
     {
         rb = GetComponent<Rigidbody2D>();
     }
+
     protected override void Start()
     {
         base.Start();
         currentState = new ChasePlayer(this);
     }
+
+    public void Init(UnitManager manager)
+    {
+        mommy = manager;
+    }
+
     protected override void Update()
     {
         base.Update();
-        playerPos = player.position;
-        currentPos = transform.position;
+        FindTarget();
     }
+
     public override void GotoBase()
     {
         if (bufferedState != null)
@@ -48,5 +55,18 @@ public class BaseEnemy : ActorBase
         }
         else
             ChangeState(new ChasePlayer(this));
+    }
+
+    private void FindTarget()
+    {
+        float minDist = float.MaxValue;
+        foreach (Player unit in mommy.Players)
+        {
+            if (unit != null && Vector2.SqrMagnitude(transform.position - unit.transform.position) < minDist)
+            {
+                minDist = Vector2.SqrMagnitude(transform.position - unit.transform.position);
+                target = unit.transform.position;
+            }
+        }
     }
 }
