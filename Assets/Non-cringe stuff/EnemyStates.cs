@@ -15,21 +15,17 @@ namespace EnemyStates
         public override void Update()
         {
             base.Update();
-            ProcessOutput();
+            PrepareAtk();
         }
-        public override void FixedUpdate()
-        {
-            base.FixedUpdate();
-            ProcessMovement();
-        }
-        protected virtual void ProcessOutput()
+        public void PrepareAtk()
         {
             enemy.aimDir = (enemy.target - (Vector2)enemy.transform.position).normalized;
             if (enemy.cooldownTimer >= 0)
                 enemy.cooldownTimer -= Time.deltaTime;
         }
-        protected virtual void ProcessMovement()
+        public override void FixedUpdate()
         {
+            base.FixedUpdate();
             enemy.rb.velocity = enemy.moveSpeed * enemy.moveDir;
         }
     }
@@ -37,14 +33,10 @@ namespace EnemyStates
     public class ChasePlayer : BaseEnemyState
     {
         public ChasePlayer(BaseEnemy daddy) : base(daddy) { }
-        protected override void ProcessMovement()
+        public override void Update()
         {
+            base.Update();
             enemy.moveDir = (enemy.target - (Vector2)enemy.transform.position).normalized;
-            base.ProcessMovement();
-        }
-        protected override void ProcessOutput()
-        {
-            base.ProcessOutput();
             if (enemy.cooldownTimer <= 0 && Vector2.SqrMagnitude(enemy.target - (Vector2)enemy.transform.position) <= enemy.atkRange)
                 enemy.ChangeState(new AtkWindup(enemy));
         }
@@ -63,16 +55,12 @@ namespace EnemyStates
             age = enemy.windupDur;
             isTimed = true;
         }
-        public override void OnEnter()
+        public override void Update()
         {
-            base.OnEnter();
-            enemy.bufferedState = new MeleeAtk(enemy);
-        }
-        protected override void ProcessOutput()
-        {
+            base.Update();
             currentMoveSpeed = Mathf.Lerp(enemy.windupSpeed, 0, 1 - age / enemy.windupDur);
         }
-        protected override void ProcessMovement()
+        public override void FixedUpdate()
         {
             enemy.rb.velocity = -currentMoveSpeed * enemy.aimDir;
         }
@@ -86,18 +74,19 @@ namespace EnemyStates
             age = enemy.atkDur;
             isTimed = true;
         }
-        protected override void ProcessOutput()
+        public override void Update()
         {
+            base.Update();
             currentMoveSpeed = Mathf.Lerp(enemy.initialDashSpeed, enemy.endDashSpeed, 1 - age / enemy.atkDur);
         }
-        protected override void ProcessMovement()
+        public override void FixedUpdate()
         {
             enemy.rb.velocity = currentMoveSpeed * enemy.aimDir;
         }
         public override void OnExit()
         {
-            base.OnExit();
             enemy.cooldownTimer = enemy.atkCooldown;
+            base.OnExit();
         }
     }
 }

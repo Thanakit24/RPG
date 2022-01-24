@@ -5,7 +5,7 @@ using EnemyStates;
 
 public class BaseEnemy : ActorBase
 {
-    public BaseState bufferedState;
+    //public BaseState bufferedState;
     [HideInInspector] public Rigidbody2D rb;
     public Vector2 moveDir;
     public Vector2 aimDir;
@@ -49,13 +49,13 @@ public class BaseEnemy : ActorBase
 
     public override void GotoBase()
     {
-        if (bufferedState != null)
-        {
-            ChangeState(bufferedState);
-            bufferedState = null;
-        }
-        else
-            ChangeState(new ChasePlayer(this));
+        //if (bufferedState != null)
+        //{
+        //    ChangeState(bufferedState);
+        //    bufferedState = null;
+        //}
+        //else
+        ChangeState(new ChasePlayer(this));
     }
 
     private void FindTarget()

@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeBoss : BaseEnemy
+namespace Slime
 {
-    public float scale;
-    protected override void Update()
+    public class SlimeBoss : BaseEnemy
     {
-        base.Update();
-        if (currentHealth <= maxHealth * 0.5f)
+        public float scale;
+        protected override void Update()
         {
-            Despawn();
-            SlimeBoss split = Instantiate(this);
-            split.maxHealth = Mathf.FloorToInt(maxHealth * 0.5f);
+            base.Update();
+            if (currentHealth <= maxHealth * 0.5f)
+            {
+                Despawn();
+                SlimeBoss split1 = Instantiate(this);
+                split1.maxHealth = Mathf.FloorToInt(maxHealth * 0.5f);
+                SlimeBoss split2 = Instantiate(this);
+                split2.maxHealth = Mathf.FloorToInt(maxHealth * 0.5f);
+            }
         }
     }
 }
